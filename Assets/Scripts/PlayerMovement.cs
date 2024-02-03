@@ -12,10 +12,19 @@ public class PlayerMovement : MonoBehaviour
     public string left;
     public string right;
 
+    public int HP;
+
+    public bool isInvincible = false;
+
+    Color og;
+    Color transparent;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        HP = 5;
+        og = GetComponent<Renderer>().material.color;
+        transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
     
     void Update()
@@ -41,5 +50,24 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed);
 
         
+    }
+
+    public void Hit() {
+        Debug.Log("hit player!");
+        StartCoroutine(iframe());
+    }
+
+    IEnumerator iframe()
+    { 
+        isInvincible = true;
+        for (int i = 0; i < 5; i++) {
+            GetComponent<Renderer>().material.color = transparent;
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<Renderer>().material.color = og;
+            yield return new WaitForSeconds(0.1f);
+        }
+        GetComponent<Renderer>().material.color = Color.white;
+        isInvincible = false;
+        yield return null;
     }
 }
