@@ -29,9 +29,12 @@ public class Enemy : MonoBehaviour
     public Transform player;
 
     private bool gotHit = false;
+    GameObject newBullet;
 
     [SerializeField] GameObject bullet;
     [SerializeField] Sprite deadSprite;
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite flippedSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +82,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.name == "WeaponBlade") {
+        if (c.name == "WeaponBlade" && currState != EnemyState.Die) {
             StartCoroutine(Hit());
             HP -= 10;
         } else if (c.name == "Player") {
@@ -88,7 +91,6 @@ public class Enemy : MonoBehaviour
                 player.GetComponent<PlayerMovement>().Hit();
             }
         }
-        Debug.Log("hit");
     }
 
     IEnumerator Hit()
@@ -121,46 +123,46 @@ public class Enemy : MonoBehaviour
         switch(randomDir)
         {
             case 8:
-            transform.localScale = new Vector2(-0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = flippedSprite;
             transform.position += -transform.right * moveSpeed * Time.deltaTime;
             transform.position += -transform.up * moveSpeed * Time.deltaTime;
             break;
             
             case 7:
-            transform.localScale = new Vector2(-0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = flippedSprite;
             transform.position += -transform.right * moveSpeed * Time.deltaTime;
             transform.position += transform.up * moveSpeed * Time.deltaTime;
             break;
             
             case 6:
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             transform.position += transform.right * moveSpeed * Time.deltaTime;
             transform.position += -transform.up * moveSpeed * Time.deltaTime;
             break;
             
             case 5:
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             transform.position += transform.right * moveSpeed*Time.deltaTime;
             transform.position += transform.up * moveSpeed * Time.deltaTime;
             break;
             
             case 4:
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             transform.position += transform.up * moveSpeed*Time.deltaTime;
             break;
             
             case 3:
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             transform.position += transform.up * moveSpeed *Time.deltaTime;
             break;
             
             case 2:
-            transform.localScale = new Vector2(-0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = flippedSprite;
             transform.position += -transform.right * moveSpeed*Time.deltaTime;
             break;
             
             case 1:
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             transform.position += transform.right * moveSpeed*Time.deltaTime;
             break;
             
@@ -176,20 +178,21 @@ public class Enemy : MonoBehaviour
         if (transform.position.x > player.position.x)
         {
             //target is left
-            transform.localScale = new Vector2(-0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = flippedSprite;
             myRigidbody.velocity = new Vector2(-moveSpeed, 0f);
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
         }
         else if (transform.position.x < player.position.x)
         {
             //target is right
-            transform.localScale = new Vector2(0.1f, 0.1f);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             myRigidbody.velocity = new Vector2(moveSpeed, 0f);
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
         }
         
         if (Time.frameCount % 300 == 0) {
-            Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet = Instantiate(bullet, transform.position, transform.rotation);
+            newBullet.GetComponent<Projectile>().setSource(transform);
         }
     }
 
