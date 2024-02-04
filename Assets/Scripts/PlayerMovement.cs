@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     Color og;
     Color transparent;
 
+    [SerializeField] GameObject weapon;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -61,13 +63,13 @@ public class PlayerMovement : MonoBehaviour
     { 
         isInvincible = true;
         for (int i = 0; i < 10; i++) {
-            GetComponent<Renderer>().material.color = transparent;
+            weapon.GetComponent<Renderer>().material.color = transparent;
             yield return new WaitForSeconds(0.1f);
-            GetComponent<Renderer>().material.color = og;
+            weapon.GetComponent<Renderer>().material.color = og;
             yield return new WaitForSeconds(0.1f);
         }
         GetComponent<Renderer>().material.color = Color.white;
-        isInvincible = false;
+        //isInvincible = false;
         yield return null;
     }
 }

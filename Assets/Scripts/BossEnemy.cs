@@ -40,6 +40,8 @@ public class BossEnemy : MonoBehaviour
     public bool isInvincible = false;
 
     bool startedPhase2 = false;
+    bool startedPhase3 = false;
+    bool startedPhase4 = false;
 
     public Transform[] spawnpoints;
 
@@ -92,22 +94,34 @@ public class BossEnemy : MonoBehaviour
             startedPhase2 = true;
         }
 
-        if (startedPhase2) {
-            if (Time.frameCount % 1620 == 0) {
+        if ((float)HP / (float)maxHP <= 0.50f && !startedPhase3) {
+            phase = 3;
+            Debug.Log("phase 3 entered");
+            startedPhase3 = true;
+        }
+
+        if ((float)HP / (float)maxHP <= 0.25f && !startedPhase4) {
+            phase = 4;
+            Debug.Log("phase 4 entered");
+            startedPhase4 = true;
+        }
+
+        if (phase == 2) {
+            if (Time.frameCount % 3240 == 0) {
                 Instantiate(mushroom, spawnpoints[0]);
                 Instantiate(mushroom, spawnpoints[6]);
                 Instantiate(mushroom, spawnpoints[2]);
                 Instantiate(mushroom, spawnpoints[4]);
             }
 
-            if ((Time.frameCount + 540) % 1620 == 0) {
+            if ((Time.frameCount + 2160) % 3240 == 0) {
                 Instantiate(pepperoni, spawnpoints[1]);
                 Instantiate(pepperoni, spawnpoints[7]);
                 Instantiate(pepperoni, spawnpoints[3]);
                 Instantiate(pepperoni, spawnpoints[5]);
             }
 
-            if ((Time.frameCount + 1080) % 1620 == 0) {
+            if ((Time.frameCount + 1080) % 3240 == 0) {
                 Instantiate(tomato, spawnpoints[1]);
                 Instantiate(tomato, spawnpoints[7]);
                 Instantiate(tomato, spawnpoints[3]);
