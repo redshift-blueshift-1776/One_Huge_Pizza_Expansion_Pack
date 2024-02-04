@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     Transform enemy;
     Vector3 startingPos;
 
+    public int bulletType;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,15 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(startingPos * Time.deltaTime * speed);
+        if (bulletType == 1) {
+            startingPos = new Vector3(-1 * startingPos.x, -1 * startingPos.y, 0);
+            transform.Translate(startingPos * Time.deltaTime * speed);
+        } else if (bulletType == 2) {
+            startingPos = new Vector3(1 * startingPos.x, -1 * startingPos.y, 0);
+            transform.Translate(startingPos * Time.deltaTime * speed);
+        } else {
+            transform.Translate(startingPos * Time.deltaTime * speed);
+        }
         StartCoroutine(waitAndDespawn());
     }
 

@@ -12,6 +12,8 @@ public enum EnemyState
 public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject weapon;
+    [SerializeField] int enemyType;
+    // 0: pepperoni
 
     public EnemyState currState = EnemyState.Wander;
     public float range = 200f;
@@ -19,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     Rigidbody2D myRigidbody;
 
-    int HP;
+    public int HP;
     Color og;
     Color transparent;
 
@@ -39,7 +41,6 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HP = 100;
         og = GetComponent<Renderer>().material.color;
         player = GameObject.Find("Player").transform;
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -190,9 +191,23 @@ public class Enemy : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
         }
         
-        if (Time.frameCount % 300 == 0) {
-            newBullet = Instantiate(bullet, transform.position, transform.rotation);
-            newBullet.GetComponent<Projectile>().setSource(transform);
+        if (enemyType == 0) {
+            if (Time.frameCount % 300 == 0) {
+                newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                newBullet.GetComponent<Projectile>().setSource(transform);
+            }
+        } else if (enemyType == 1) {
+            if (Time.frameCount % 300 == 0) {
+                newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                newBullet.GetComponent<Projectile>().setSource(transform);
+                newBullet.GetComponent<Projectile>().bulletType = 0;
+                newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                newBullet.GetComponent<Projectile>().setSource(transform);
+                newBullet.GetComponent<Projectile>().bulletType = 1;
+                newBullet = Instantiate(bullet, transform.position, transform.rotation);
+                newBullet.GetComponent<Projectile>().setSource(transform);
+                newBullet.GetComponent<Projectile>().bulletType = 2;
+            }
         }
     }
 
