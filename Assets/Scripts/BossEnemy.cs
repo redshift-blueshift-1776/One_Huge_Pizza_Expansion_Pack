@@ -42,7 +42,7 @@ public class BossEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        phase = 3;
+        phase = 4;
         maxHP = 4000;
         HP = 4000;
         moveSpeed = 5;
@@ -188,6 +188,31 @@ public class BossEnemy : MonoBehaviour
             }
         }
 
+        if (phase == 4) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            if (Time.frameCount % 15 == 0) {
+                if ((Time.frameCount % 240 <= 60) || (Time.frameCount % 240 == 150) || (Time.frameCount % 240 == 180) || (Time.frameCount % 240 == 210)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 9f);
+                    shootBullet(vec, new Vector3(0,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(1,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(-1,1,0), 9f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 6f); //change to point at player
+                }
+            }
+        }
+
         if (phase % 2 == 1) {
             if (Time.frameCount % 540 == 0) {
                 changeAttack(2);
@@ -306,6 +331,31 @@ public class BossEnemy : MonoBehaviour
                 } else {
                     Vector3 vec = new Vector3(.05f, .05f, .05f);
                     shootBullet(vec, new Vector3(0,-1,0), 9f); //change to point at player
+                }
+            }
+        }
+
+        if (phase == 4) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            if (Time.frameCount % 15 == 0) {
+                if ((Time.frameCount % 240 <= 60) || (Time.frameCount % 240 == 150) || (Time.frameCount % 240 == 180) || (Time.frameCount % 240 == 210)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 2f);
+                    shootBullet(vec, new Vector3(0,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(1,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(-1,1,0), 2f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 6f); //change to point at player
                 }
             }
         }
