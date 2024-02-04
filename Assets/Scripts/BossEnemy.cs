@@ -162,6 +162,32 @@ public class BossEnemy : MonoBehaviour
             }
         }
 
+        if (phase == 3) {
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            if (transform.position.x < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -3;
+            }
+            if (Time.frameCount % 15 == 0) {
+                if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
+                    || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 9f);
+                    shootBullet(vec, new Vector3(0,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(1,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(-1,1,0), 9f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 6f); //change to point at player
+                }
+            }
+        }
+
         if (Time.frameCount % 540 == 0) {
             changeAttack(2);
         }
