@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossEnemy : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class BossEnemy : MonoBehaviour
     [SerializeField] GameObject pepperoni;
     [SerializeField] GameObject mushroom;
     [SerializeField] GameObject tomato;
+
+    [SerializeField] GameObject sceneSwitcher;
 
     // Start is called before the first frame update
     void Start()
@@ -138,7 +141,7 @@ public class BossEnemy : MonoBehaviour
     {
         if (c.name == "WeaponBlade" && currState != EnemyState.Die && !isInvincible) {
             StartCoroutine(Hit());
-            HP -= 10;
+            HP -= 200;
             bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
@@ -460,6 +463,20 @@ public class BossEnemy : MonoBehaviour
 
     private IEnumerator DieCoroutine()
     {
+        myRigidbody.velocity = new Vector2(0f, 0f);
+        Debug.Log("test");
+        player.GetComponent<PlayerMovement>().isInvincible = true;
+        GetComponent<SpriteRenderer>().sprite = deadSprite;
+        for (int i = 0; i < 5; i++) {
+            GetComponent<Renderer>().material.color = transparent;
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<Renderer>().material.color = og;
+            yield return new WaitForSeconds(0.1f);
+        }
+        GetComponent<Renderer>().material.color = Color.red;
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(2);
+        Destroy(gameObject);
         yield return null;
     }
 

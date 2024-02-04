@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -44,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
         // Move the player
         MovePlayer(movement);
 
+        if (HP == 0) {
+            SceneManager.LoadScene(3);
+        }
     }
 
     void MovePlayer(Vector2 movement)
@@ -69,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         GetComponent<Renderer>().material.color = Color.white;
-        //isInvincible = false;
+        isInvincible = false;
         yield return null;
     }
 }
