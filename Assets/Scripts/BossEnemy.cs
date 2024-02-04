@@ -52,6 +52,16 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField] GameObject sceneSwitcher;
 
+    [SerializeField] AudioSource audioController;
+
+    public AudioClip phase2;
+    public AudioClip phase3;
+    public AudioClip phase4;
+
+    [SerializeField] Sprite phase1Sprite;
+    [SerializeField] Sprite phase2Sprite;
+    [SerializeField] Sprite phase34Sprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,18 +105,26 @@ public class BossEnemy : MonoBehaviour
             Debug.Log("phase 2 entered");
             StartCoroutine(changeAttackPhase());
             startedPhase2 = true;
+            audioController.clip = phase2;
+            audioController.Play();
+            GetComponent<SpriteRenderer>().sprite = phase2Sprite;
         }
 
         if ((float)HP / (float)maxHP <= 0.50f && !startedPhase3) {
             phase = 3;
             Debug.Log("phase 3 entered");
             startedPhase3 = true;
+            audioController.clip = phase3;
+            audioController.Play();
+            GetComponent<SpriteRenderer>().sprite = phase34Sprite;
         }
 
         if ((float)HP / (float)maxHP <= 0.25f && !startedPhase4) {
             phase = 4;
             Debug.Log("phase 4 entered");
             startedPhase4 = true;
+            audioController.clip = phase4;
+            audioController.Play();
         }
 
         if (phase == 2) {
@@ -141,7 +159,7 @@ public class BossEnemy : MonoBehaviour
     {
         if (c.name == "WeaponBlade" && currState != EnemyState.Die && !isInvincible) {
             StartCoroutine(Hit());
-            HP -= 200;
+            HP -= 100;
             bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
@@ -235,7 +253,7 @@ public class BossEnemy : MonoBehaviour
             if (Time.frameCount % 15 == 0) {
                 if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
                     || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    Vector3 vec = new Vector3(.03f, .03f, .03f);
                     shootBullet(vec, new Vector3(0,-1,0), 9f);
                     shootBullet(vec, new Vector3(0,1,0), 9f);
                     shootBullet(vec, new Vector3(1,0,0), 9f);
@@ -262,7 +280,7 @@ public class BossEnemy : MonoBehaviour
             }
             if ((Time.frameCount % 15 == 0) || (Time.frameCount % 15 == 8)) {
                 if ((Time.frameCount % 120 <= 30) || (Time.frameCount % 120 == 75) || (Time.frameCount % 120 == 90) || (Time.frameCount % 120 == 105)) {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    Vector3 vec = new Vector3(.03f, .03f, .03f);
                     shootBullet(vec, new Vector3(0,-1,0), 9f);
                     shootBullet(vec, new Vector3(0,1,0), 9f);
                     shootBullet(vec, new Vector3(1,0,0), 9f);
