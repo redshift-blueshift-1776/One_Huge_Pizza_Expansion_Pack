@@ -201,22 +201,23 @@ public class Enemy : MonoBehaviour
         
         if (enemyType == 0) {
             if ((Time.frameCount + storeFrame) % 120 == 0) {
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, player.position, 3f);
             }
         } else if (enemyType == 1) {
             if ((Time.frameCount + storeFrame) % 120 == 0) {
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 0;
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 1;
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 2;
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, player.position, 3f);
             }
         }
+    }
+
+    void shootBullet(Vector3 size, Vector3 bulletDirection, float speed) {
+        newBullet = Instantiate(bullet, transform.position, transform.rotation);
+        newBullet.transform.localScale = size;
+        newBullet.GetComponent<Projectile>().setSource(transform);
+        newBullet.GetComponent<Projectile>().startingPos = bulletDirection;
+        newBullet.GetComponent<Projectile>().speed = speed;
     }
 
     void Die() {

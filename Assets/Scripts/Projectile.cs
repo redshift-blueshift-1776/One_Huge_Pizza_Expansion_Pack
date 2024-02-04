@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float speed;
+    public float speed;
 
     GameObject player;
     Transform enemy;
-    Vector3 startingPos;
+    public Vector3 startingPos;
 
     public int bulletType;
 
@@ -16,10 +16,10 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        startingPos = player.transform.position - enemy.position;
-        if (player.transform.position.x < enemy.position.x) {
-            startingPos = new Vector3(1 * startingPos.x, startingPos.y, 0);
-        }
+        //startingPos = player.transform.position - enemy.position;
+        //if (player.transform.position.x < enemy.position.x) {
+        //    startingPos = new Vector3(1 * startingPos.x, startingPos.y, 0);
+        //}
     }
 
     public void setSource(Transform t) {
@@ -29,20 +29,12 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bulletType == 1) {
-            startingPos = new Vector3(-1 * startingPos.x, -1 * startingPos.y, 0);
-            transform.Translate(startingPos * Time.deltaTime * speed);
-        } else if (bulletType == 2) {
-            startingPos = new Vector3(1 * startingPos.x, -1 * startingPos.y, 0);
-            transform.Translate(startingPos * Time.deltaTime * speed);
-        } else {
-            transform.Translate(startingPos * Time.deltaTime * speed);
-        }
+        transform.Translate(startingPos * Time.deltaTime * speed);
         StartCoroutine(waitAndDespawn());
     }
 
     private IEnumerator waitAndDespawn() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
         yield return null;
     }
@@ -56,6 +48,6 @@ public class Projectile : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        Debug.Log("hit");
+        //Debug.Log("hit");
     }
 }

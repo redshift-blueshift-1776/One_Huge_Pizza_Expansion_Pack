@@ -10,12 +10,13 @@ public class BossEnemy : MonoBehaviour
     // 1: mushroom
 
     public EnemyState currState;
-    public float range = 200f;
-    public float moveSpeed = 1f;
+    public float range;
+    public float moveSpeed;
 
     Rigidbody2D myRigidbody;
 
     public int HP;
+    public int maxHP;
     Color og;
     Color transparent;
 
@@ -31,13 +32,23 @@ public class BossEnemy : MonoBehaviour
 
     public int phase;
 
+    [SerializeField] GameObject bossHealthBar;
+
+    public int xBound;
+    bool direction;
+
+    public bool isInvincible = false;
+
     // Start is called before the first frame update
     void Start()
     {
         phase = 1;
+        maxHP = 4000;
+        HP = 4000;
+        moveSpeed = 5;
         currState = EnemyState.Attack1;
         og = GetComponent<Renderer>().material.color;
-        player = GameObject.Find("Player").transform;
+        //player = GameObject.Find("Player").transform;
         myRigidbody = GetComponent<Rigidbody2D>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
@@ -61,19 +72,14 @@ public class BossEnemy : MonoBehaviour
                 break;
         }    
 
-        /*
-        if(IsPlayerInRange(range) && currState != EnemyState.Die)
-        {
-            currState = EnemyState.Follow;
-        }
-        else if(!IsPlayerInRange(range)&& currState != EnemyState.Die)
-        {
-            currState = EnemyState.Wander;
-        }
-        */
-
         if (HP <= 0) {
             currState = EnemyState.Die;
+        }
+
+        if ((float)HP / (float)maxHP == 0.75f) {
+            phase = 2;
+            Debug.Log("phase 2 entered");
+            StartCoroutine(changeAttackPhase());
         }
 
         if (gotHit) {
@@ -83,9 +89,10 @@ public class BossEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.name == "WeaponBlade" && currState != EnemyState.Die) {
+        if (c.name == "WeaponBlade" && currState != EnemyState.Die && !isInvincible) {
             StartCoroutine(Hit());
-            HP -= 10;
+            HP -= 5;
+            bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
                 player.GetComponent<PlayerMovement>().HP -= 1;
@@ -104,6 +111,18 @@ public class BossEnemy : MonoBehaviour
         yield return null;
     }
 
+    void changePhase(int i) {
+        phase = i;
+    }
+
+    private IEnumerator changeAttackPhase()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(3f);
+        isInvincible = false;
+        yield return null;
+    }
+
     private bool IsPlayerInRange(float range)
     {
         return Vector3.Distance(transform.position, player.transform.position) <= range;
@@ -117,31 +136,130 @@ public class BossEnemy : MonoBehaviour
     void Attack1()
     {
         if (phase == 1) {
-            if (Time.frameCount % 100 == 0) {
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 0;
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 1;
-                newBullet = Instantiate(bullet, transform.position, transform.rotation);
-                newBullet.GetComponent<Projectile>().setSource(transform);
-                newBullet.GetComponent<Projectile>().bulletType = 2;
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            if (transform.position.x < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -5;
             }
+            if (Time.frameCount % 100 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0,-1,0), 8f);
+                shootBullet(vec, new Vector3(-1,-1,0), 4f);
+                shootBullet(vec, new Vector3(1,-1,0), 4f);
+            }
+            if (Time.frameCount % 50 == 0 || Time.frameCount % 40 == 0) {
+                Vector3 vec = new Vector3(.03f, .03f, .03f);
+                shootBullet(vec, new Vector3(-2,-2,0), 3f);
+                shootBullet(vec, new Vector3(2,-2,0), 3f);
+                shootBullet(vec, new Vector3(-1.5f,-2,0), 3f);
+                shootBullet(vec, new Vector3(1.5f,-2,0), 3f);
+            }
+            if (Time.frameCount % 10 == 0) {
+                Vector3 vec = new Vector3(.03f, .03f, .03f);
+                shootBullet(vec, new Vector3(-1,0,0), 10f);
+                shootBullet(vec, new Vector3(1,0,0), 10f);
+            }
+        }
+
+        if (Time.frameCount % 540 == 0) {
+            changeAttack(2);
+        }
+    }
+
+    void changeAttack (int i) {
+        switch (i)
+        {
+            case (1):
+                currState = EnemyState.Attack1;
+                break;
+            case (2):
+                currState = EnemyState.Attack2;
+                break;
+        }    
+    }
+
+    void shootBullet(Vector3 size, Vector3 bulletDirection, float speed) {
+        newBullet = Instantiate(bullet, transform.position, transform.rotation);
+        newBullet.transform.localScale = size;
+        newBullet.GetComponent<Projectile>().setSource(transform);
+        newBullet.GetComponent<Projectile>().startingPos = bulletDirection;
+        newBullet.GetComponent<Projectile>().speed = speed;
+    }
+
+    private IEnumerator MoveObject (Transform thisTransform, Vector3 startPos, Vector3 endPos, float time) {
+        float i = 0.0f;
+        float rate = 1.0f / time;
+        while (i < 1.0f) {
+            i += Time.deltaTime * rate;
+            thisTransform.position = Vector3.Lerp(startPos, endPos, i);
+            yield return null;
         }
     }
 
     void Attack2()
     {
         if (phase == 1) {
-
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            if (transform.position.x < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -5;
+            }
+            if ((Time.frameCount + 0) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(1,0,0), 8f);
+            }
+            if ((Time.frameCount + 10) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
+            }
+            if ((Time.frameCount + 20) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 30) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 40) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 50) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(1,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 60) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 70) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 80) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
+            }
+            if ((Time.frameCount + 90) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
+            }
+            if ((Time.frameCount + 100) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
+            }
+        }
+        if (Time.frameCount % 540 == 0) {
+            changeAttack(1);
         }
     }
 
     void Attack3()
     {
         if (phase == 1) {
-            
+
         }
     }
     void Die() {

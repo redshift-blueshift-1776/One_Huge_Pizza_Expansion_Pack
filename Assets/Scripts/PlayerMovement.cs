@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator iframe()
     { 
         isInvincible = true;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             GetComponent<Renderer>().material.color = transparent;
             yield return new WaitForSeconds(0.1f);
             GetComponent<Renderer>().material.color = og;
