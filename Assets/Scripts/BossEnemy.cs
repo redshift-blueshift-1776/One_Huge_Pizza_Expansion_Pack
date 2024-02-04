@@ -199,8 +199,69 @@ public class BossEnemy : MonoBehaviour
             }
         } 
 
-        if (Time.frameCount % 540 == 0) {
-            changeAttack(2);
+        if (phase == 3) {
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            if (transform.position.x < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -3;
+            }
+            if (Time.frameCount % 15 == 0) {
+                if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
+                    || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 9f);
+                    shootBullet(vec, new Vector3(0,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(1,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,-1,0), 9f);
+                    shootBullet(vec, new Vector3(-1,1,0), 9f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 6f); //change to point at player
+                }
+            }
+        }
+
+        if (phase == 4) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            if ((Time.frameCount % 15 == 0) || (Time.frameCount % 15 == 8)) {
+                if ((Time.frameCount % 120 <= 30) || (Time.frameCount % 120 == 75) || (Time.frameCount % 120 == 90) || (Time.frameCount % 120 == 105)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 9f);
+                    shootBullet(vec, new Vector3(0,1,0), 9f);
+                    shootBullet(vec, new Vector3(1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-1,0,0), 9f);
+                    shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 9f);
+                    shootBullet(vec, new Vector3(0.5f,0.5f,0), 9f);
+                    shootBullet(vec, new Vector3(0.5f,-0.5f,0), 9f);
+                    shootBullet(vec, new Vector3(-0.5f,0.5f,0), 9f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 6f); //change to point at player
+                }
+            }
+        }
+
+        if (phase % 2 == 1) {
+            if (Time.frameCount % 540 == 0) {
+                changeAttack(2);
+            }
+        } else {
+            if (Time.frameCount % 480 == 0) {
+                changeAttack(2);
+            }
         }
     }
 
@@ -287,10 +348,71 @@ public class BossEnemy : MonoBehaviour
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
             }
-        } 
+        }
 
-        if (Time.frameCount % 540 == 0) {
-            changeAttack(1);
+        if (phase == 3) {
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            if (transform.position.x < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -3;
+            }
+            if (Time.frameCount % 15 == 0) {
+                if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
+                    || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 2f);
+                    shootBullet(vec, new Vector3(0,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(1,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(-1,1,0), 2f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 9f); //change to point at player
+                }
+            }
+        }
+
+        if (phase == 4) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            if ((Time.frameCount % 15 == 0) || (Time.frameCount % 15 == 8)) {
+                if ((Time.frameCount % 120 <= 30) || (Time.frameCount % 120 == 75) || (Time.frameCount % 120 == 90) || (Time.frameCount % 120 == 105)) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 2f);
+                    shootBullet(vec, new Vector3(0,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 2f);
+                    shootBullet(vec, new Vector3(0.5f,0.5f,0), 2f);
+                    shootBullet(vec, new Vector3(0.5f,-0.5f,0), 2f);
+                    shootBullet(vec, new Vector3(-0.5f,0.5f,0), 2f);
+                } else {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 9f); //change to point at player
+                }
+            }
+        }
+
+        if (phase % 2 == 1) {
+            if (Time.frameCount % 540 == 0) {
+                changeAttack(1);
+            }
+        } else {
+            if (Time.frameCount % 480 == 0) {
+                changeAttack(1);
+            }
         }
     }
 
