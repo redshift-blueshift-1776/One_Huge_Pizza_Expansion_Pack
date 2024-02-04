@@ -73,7 +73,12 @@ public class Enemy : MonoBehaviour
             if (currState != EnemyState.Follow) {
                 storeFrame = Time.frameCount;
             }
-            currState = EnemyState.Follow;
+
+            if (enemyType != 3) {
+                currState = EnemyState.Follow;
+            } else {
+                currState = EnemyState.Wander;
+            }
         }
         else if(!IsPlayerInRange(range)&& currState != EnemyState.Die)
         {
@@ -94,7 +99,7 @@ public class Enemy : MonoBehaviour
         if (c.name == "WeaponBlade" && currState != EnemyState.Die) {
             StartCoroutine(Hit());
             HP -= 10;
-        } else if (c.name == "Player") {
+        } else if (c.name == "Player" && currState != EnemyState.Die) {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
                 player.GetComponent<PlayerMovement>().HP -= 1;
                 player.GetComponent<PlayerMovement>().Hit();
@@ -127,6 +132,16 @@ public class Enemy : MonoBehaviour
         if (!chooseDir)
         {
             StartCoroutine(ChooseDirection());
+        }
+
+        if (enemyType == 3) {
+            if ((Time.frameCount + storeFrame) % 120 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-1,1,0), 3f);
+                shootBullet(vec, new Vector3(1,1,0), 3f);
+                shootBullet(vec, new Vector3(1,-1,0), 3f);
+                shootBullet(vec, new Vector3(-1,-1,0), 3f);
+            }
         }
 
         switch(randomDir)
@@ -208,6 +223,8 @@ public class Enemy : MonoBehaviour
             if ((Time.frameCount + storeFrame) % 120 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, player.position, 3f);
+                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y + 1, 0f), 3f);
+                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y - 1, 0f), 3f);
             }
         }
     }

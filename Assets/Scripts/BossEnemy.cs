@@ -39,16 +39,25 @@ public class BossEnemy : MonoBehaviour
 
     public bool isInvincible = false;
 
+    bool startedPhase2 = false;
+
+    public Transform[] spawnpoints;
+
+    [SerializeField] GameObject pepperoni;
+    [SerializeField] GameObject mushroom;
+    [SerializeField] GameObject tomato;
+
     // Start is called before the first frame update
     void Start()
     {
-        phase = 1;
-        maxHP = 4000;
-        HP = 4000;
-        moveSpeed = 5;
-        currState = EnemyState.Attack1;
+        //phase = 1;
+        //maxHP = 4000;
+        //HP = 4000;
+        //moveSpeed = 5;
+        //currState = EnemyState.Attack1;
         og = GetComponent<Renderer>().material.color;
-        //player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player").transform;
+        spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
@@ -76,10 +85,34 @@ public class BossEnemy : MonoBehaviour
             currState = EnemyState.Die;
         }
 
-        if ((float)HP / (float)maxHP == 0.75f) {
+        if ((float)HP / (float)maxHP <= 0.75f && !startedPhase2) {
             phase = 2;
             Debug.Log("phase 2 entered");
             StartCoroutine(changeAttackPhase());
+            startedPhase2 = true;
+        }
+
+        if (startedPhase2) {
+            if (Time.frameCount % 1620 == 0) {
+                Instantiate(mushroom, spawnpoints[0]);
+                Instantiate(mushroom, spawnpoints[6]);
+                Instantiate(mushroom, spawnpoints[2]);
+                Instantiate(mushroom, spawnpoints[4]);
+            }
+
+            if ((Time.frameCount + 540) % 1620 == 0) {
+                Instantiate(pepperoni, spawnpoints[1]);
+                Instantiate(pepperoni, spawnpoints[7]);
+                Instantiate(pepperoni, spawnpoints[3]);
+                Instantiate(pepperoni, spawnpoints[5]);
+            }
+
+            if ((Time.frameCount + 1080) % 1620 == 0) {
+                Instantiate(tomato, spawnpoints[1]);
+                Instantiate(tomato, spawnpoints[7]);
+                Instantiate(tomato, spawnpoints[3]);
+                Instantiate(tomato, spawnpoints[5]);
+            }
         }
 
         if (gotHit) {
@@ -91,7 +124,7 @@ public class BossEnemy : MonoBehaviour
     {
         if (c.name == "WeaponBlade" && currState != EnemyState.Die && !isInvincible) {
             StartCoroutine(Hit());
-            HP -= 5;
+            HP -= 10;
             bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
@@ -119,6 +152,10 @@ public class BossEnemy : MonoBehaviour
     {
         isInvincible = true;
         yield return new WaitForSeconds(3f);
+        Instantiate(tomato, spawnpoints[0]);
+        Instantiate(tomato, spawnpoints[1]);
+        Instantiate(tomato, spawnpoints[6]);
+        Instantiate(tomato, spawnpoints[7]);
         isInvincible = false;
         yield return null;
     }
@@ -160,7 +197,7 @@ public class BossEnemy : MonoBehaviour
                 shootBullet(vec, new Vector3(-1,0,0), 10f);
                 shootBullet(vec, new Vector3(1,0,0), 10f);
             }
-        }
+        } 
 
         if (Time.frameCount % 540 == 0) {
             changeAttack(2);
@@ -250,7 +287,8 @@ public class BossEnemy : MonoBehaviour
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
             }
-        }
+        } 
+
         if (Time.frameCount % 540 == 0) {
             changeAttack(1);
         }
@@ -258,7 +296,7 @@ public class BossEnemy : MonoBehaviour
 
     void Attack3()
     {
-        if (phase == 1) {
+        if (phase == 2) {
 
         }
     }
