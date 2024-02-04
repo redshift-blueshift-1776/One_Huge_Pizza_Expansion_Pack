@@ -162,6 +162,15 @@ public class BossEnemy : MonoBehaviour
             }
         }
 
+        if (phase == 2) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -5;
+            }
+        }
+
         if (phase == 3) {
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
             if (transform.position.x < -5) {
@@ -310,6 +319,15 @@ public class BossEnemy : MonoBehaviour
             if ((Time.frameCount + 100) % 120 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
+            }
+        }
+
+        if (phase == 2) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -5;
             }
         }
 
