@@ -43,12 +43,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] Sprite normalSprite;
     [SerializeField] Sprite flippedSprite;
 
+    private AudioSource splat;
+
     // Start is called before the first frame update
     void Start()
     {
         og = GetComponent<Renderer>().material.color;
         player = GameObject.Find("Player").transform;
         myRigidbody = GetComponent<Rigidbody2D>();
+        splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
 
@@ -99,6 +102,7 @@ public class Enemy : MonoBehaviour
         if (c.name == "WeaponBlade" && currState != EnemyState.Die) {
             StartCoroutine(Hit());
             HP -= 10;
+            splat.Play();
         } else if (c.name == "Player" && currState != EnemyState.Die) {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
                 player.GetComponent<PlayerMovement>().HP -= 1;
@@ -217,14 +221,14 @@ public class Enemy : MonoBehaviour
         if (enemyType == 0) {
             if ((Time.frameCount + storeFrame) % 120 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, player.position, 3f);
+                shootBullet(vec, player.position, 1f);
             }
         } else if (enemyType == 1) {
             if ((Time.frameCount + storeFrame) % 120 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, player.position, 3f);
-                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y + 1, 0f), 3f);
-                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y - 1, 0f), 3f);
+                shootBullet(vec, player.position, 1f);
+                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y + 1, 0f), 1f);
+                shootBullet(vec, new Vector3(player.position.x, (float) player.position.y - 1, 0f), 1f);
             }
         }
     }

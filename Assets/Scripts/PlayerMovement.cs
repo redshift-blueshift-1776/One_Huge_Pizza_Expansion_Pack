@@ -22,11 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] GameObject weapon;
 
+    private AudioSource hit;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         HP = 5;
         og = GetComponent<Renderer>().material.color;
+        hit = GameObject.Find("Hit").GetComponent<AudioSource>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
     
@@ -59,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Hit() {
-        Debug.Log("hit player!");
+        hit.Play();
         StartCoroutine(iframe());
     }
 

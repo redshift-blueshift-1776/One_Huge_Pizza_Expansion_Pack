@@ -62,6 +62,8 @@ public class BossEnemy : MonoBehaviour
     [SerializeField] Sprite phase2Sprite;
     [SerializeField] Sprite phase34Sprite;
 
+    private AudioSource splat;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +74,7 @@ public class BossEnemy : MonoBehaviour
         //currState = EnemyState.Attack1;
         og = GetComponent<Renderer>().material.color;
         player = GameObject.Find("Player").transform;
+        splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
@@ -132,20 +135,17 @@ public class BossEnemy : MonoBehaviour
                 Instantiate(mushroom, spawnpoints[0]);
                 Instantiate(mushroom, spawnpoints[6]);
                 Instantiate(mushroom, spawnpoints[2]);
-                Instantiate(mushroom, spawnpoints[4]);
             }
 
             if ((Time.frameCount + 2160) % 3240 == 0) {
                 Instantiate(pepperoni, spawnpoints[1]);
                 Instantiate(pepperoni, spawnpoints[7]);
                 Instantiate(pepperoni, spawnpoints[3]);
-                Instantiate(pepperoni, spawnpoints[5]);
             }
 
             if ((Time.frameCount + 1080) % 3240 == 0) {
                 Instantiate(tomato, spawnpoints[1]);
                 Instantiate(tomato, spawnpoints[7]);
-                Instantiate(tomato, spawnpoints[3]);
                 Instantiate(tomato, spawnpoints[5]);
             }
         }
@@ -159,8 +159,9 @@ public class BossEnemy : MonoBehaviour
     {
         if (c.name == "WeaponBlade" && currState != EnemyState.Die && !isInvincible) {
             StartCoroutine(Hit());
-            HP -= 100;
+            HP -= 20;
             bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
+            splat.Play();
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
                 player.GetComponent<PlayerMovement>().HP -= 1;
@@ -186,7 +187,7 @@ public class BossEnemy : MonoBehaviour
     private IEnumerator changeAttackPhase()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(.5f);
         Instantiate(tomato, spawnpoints[0]);
         Instantiate(tomato, spawnpoints[1]);
         Instantiate(tomato, spawnpoints[6]);
