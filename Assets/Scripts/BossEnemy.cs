@@ -42,7 +42,7 @@ public class BossEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        phase = 1;
+        phase = 3;
         maxHP = 4000;
         HP = 4000;
         moveSpeed = 5;
@@ -188,8 +188,14 @@ public class BossEnemy : MonoBehaviour
             }
         }
 
-        if (Time.frameCount % 540 == 0) {
-            changeAttack(2);
+        if (phase % 2 == 1) {
+            if (Time.frameCount % 540 == 0) {
+                changeAttack(2);
+            }
+        } else {
+            if (Time.frameCount % 480 == 0) {
+                changeAttack(2);
+            }
         }
     }
 
@@ -289,23 +295,29 @@ public class BossEnemy : MonoBehaviour
                 if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
                     || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
                     Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    shootBullet(vec, new Vector3(0,-1,0), 9f);
-                    shootBullet(vec, new Vector3(0,1,0), 9f);
-                    shootBullet(vec, new Vector3(1,0,0), 9f);
-                    shootBullet(vec, new Vector3(-1,0,0), 9f);
-                    shootBullet(vec, new Vector3(-1,-1,0), 9f);
-                    shootBullet(vec, new Vector3(1,1,0), 9f);
-                    shootBullet(vec, new Vector3(1,-1,0), 9f);
-                    shootBullet(vec, new Vector3(-1,1,0), 9f);
+                    shootBullet(vec, new Vector3(0,-1,0), 2f);
+                    shootBullet(vec, new Vector3(0,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,0,0), 2f);
+                    shootBullet(vec, new Vector3(-1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(1,1,0), 2f);
+                    shootBullet(vec, new Vector3(1,-1,0), 2f);
+                    shootBullet(vec, new Vector3(-1,1,0), 2f);
                 } else {
                     Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    shootBullet(vec, new Vector3(0,-1,0), 6f); //change to point at player
+                    shootBullet(vec, new Vector3(0,-1,0), 9f); //change to point at player
                 }
             }
         }
 
-        if (Time.frameCount % 540 == 0) {
-            changeAttack(1);
+        if (phase % 2 == 1) {
+            if (Time.frameCount % 540 == 0) {
+                changeAttack(1);
+            }
+        } else {
+            if (Time.frameCount % 480 == 0) {
+                changeAttack(1);
+            }
         }
     }
 
