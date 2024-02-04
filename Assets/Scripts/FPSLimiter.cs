@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotate : MonoBehaviour
+public class FPSLimiter : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0f,0f,10f,Space.Self);
+        
     }
 }

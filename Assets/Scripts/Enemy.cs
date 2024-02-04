@@ -7,6 +7,9 @@ public enum EnemyState
   Wander,
   Follow,
   Die,
+  Attack1,
+  Attack2,
+  Attack3
 };
 
 public class Enemy : MonoBehaviour
@@ -14,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject weapon;
     [SerializeField] int enemyType;
     // 0: pepperoni
+    // 1: mushroom
 
     public EnemyState currState = EnemyState.Wander;
     public float range = 200f;
@@ -32,6 +36,7 @@ public class Enemy : MonoBehaviour
 
     private bool gotHit = false;
     GameObject newBullet;
+    float storeFrame;
 
     [SerializeField] GameObject bullet;
     [SerializeField] Sprite deadSprite;
@@ -65,6 +70,9 @@ public class Enemy : MonoBehaviour
 
         if(IsPlayerInRange(range) && currState != EnemyState.Die)
         {
+            if (currState != EnemyState.Follow) {
+                storeFrame = Time.frameCount;
+            }
             currState = EnemyState.Follow;
         }
         else if(!IsPlayerInRange(range)&& currState != EnemyState.Die)
@@ -192,12 +200,12 @@ public class Enemy : MonoBehaviour
         }
         
         if (enemyType == 0) {
-            if (Time.frameCount % 300 == 0) {
+            if ((Time.frameCount + storeFrame) % 120 == 0) {
                 newBullet = Instantiate(bullet, transform.position, transform.rotation);
                 newBullet.GetComponent<Projectile>().setSource(transform);
             }
         } else if (enemyType == 1) {
-            if (Time.frameCount % 300 == 0) {
+            if ((Time.frameCount + storeFrame) % 120 == 0) {
                 newBullet = Instantiate(bullet, transform.position, transform.rotation);
                 newBullet.GetComponent<Projectile>().setSource(transform);
                 newBullet.GetComponent<Projectile>().bulletType = 0;
