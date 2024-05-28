@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         og = GetComponent<Renderer>().material.color;
         hit = GameObject.Find("hit").GetComponent<AudioSource>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
+        hacks = false;
     }
     
     void Update()
@@ -52,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
             hacks = true;
             Debug.Log("hacks on.");
         }
+        if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.K)) {
+            hacks = false;
+            Debug.Log("hacks off.");
+        }
 
         // Calculate movement vector
         Vector2 movement = new Vector2(x, y).normalized;
@@ -59,13 +64,9 @@ public class PlayerMovement : MonoBehaviour
         // Move the player
         MovePlayer(movement);
 
-        if (HP < 0) {
-            HP = 0;
-        }
-
         if ((HP <= 0) && (!hacks)) {
             int sceneID = SceneManager.GetActiveScene().buildIndex;
-            if (sceneID == 0) {
+            if (sceneID == 1) {
                 SceneManager.LoadScene(3);
             } else if (sceneID == 5) {
                 SceneManager.LoadScene(6);
