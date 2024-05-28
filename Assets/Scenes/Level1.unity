@@ -810,7 +810,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f93c6933b220c45dc96f8c7b6e0c17b2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1316,6 +1316,7 @@ GameObject:
   - component: {fileID: 729195954}
   - component: {fileID: 729195955}
   - component: {fileID: 729195956}
+  - component: {fileID: 729195957}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -1389,7 +1390,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 4000
+  m_MaxValue: 1500
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1402,13 +1403,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729195953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41e435e675bf4087890b09a4366cc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 729195955}
   bossHealth: 271
+  boss: {fileID: 1310024044}
+--- !u!114 &729195957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729195953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab42f8862286644b7a87d8f600718a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 729195955}
+  bossHealth: 0
   boss: {fileID: 1310024044}
 --- !u!1 &803035207
 GameObject:
@@ -1848,6 +1864,7 @@ GameObject:
   - component: {fileID: 1310024046}
   - component: {fileID: 1310024045}
   - component: {fileID: 1310024051}
+  - component: {fileID: 1310024052}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -2026,7 +2043,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310024044}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48f2f642346874d56b291d4fac289e4f, type: 3}
   m_Name: 
@@ -2059,6 +2076,46 @@ MonoBehaviour:
   phase1Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
   phase2Sprite: {fileID: 21300000, guid: fdb5b1d4556724cc6a452172620159ef, type: 3}
   phase34Sprite: {fileID: 21300000, guid: 45392dc621618416bbb0379dbc4bfa4e, type: 3}
+--- !u!114 &1310024052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310024044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc8aea55a37f430b9e95dd85ab1e74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  enemyType: 2
+  currState: 3
+  range: 10
+  moveSpeed: 5
+  HP: 1500
+  maxHP: 1500
+  player: {fileID: 596536071}
+  bullet: {fileID: 5684926617162620279, guid: cddc23e78cefa4d80b7d8d8598461a46, type: 3}
+  deadSprite: {fileID: 21300000, guid: 6720d63db2d954c2aa2eeb44b7d0a8b4, type: 3}
+  normalSprite: {fileID: 0}
+  flippedSprite: {fileID: 0}
+  phase: 1
+  bossHealthBar: {fileID: 729195953}
+  xBound: 0
+  isInvincible: 0
+  spawnpoints: []
+  pepperoni: {fileID: 0}
+  mushroom: {fileID: 0}
+  tomato: {fileID: 0}
+  sceneSwitcher: {fileID: 1790353663}
+  audioController: {fileID: 1842901706}
+  phase2: {fileID: 0}
+  phase3: {fileID: 0}
+  phase4: {fileID: 0}
+  phase1Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
+  phase2Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
+  phase34Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
 --- !u!1 &1394527307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,7 +2132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1394527308
 Transform:
   m_ObjectHideFlags: 0

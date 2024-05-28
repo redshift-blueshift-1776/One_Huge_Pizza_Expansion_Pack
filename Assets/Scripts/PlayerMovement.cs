@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isInvincible = false;
 
+    private bool hacks = false;
+
     Color og;
     Color transparent;
 
@@ -42,14 +44,32 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(left)) x = -1;
         if (Input.GetKey(right)) x = 1;
 
+        // if ((Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.F)) && Input.GetKey(KeyCode.L)) {
+        //     hacks = true;
+        //     Debug.Log("hacks on.");
+        // }
+        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.F)) {
+            hacks = true;
+            Debug.Log("hacks on.");
+        }
+
         // Calculate movement vector
         Vector2 movement = new Vector2(x, y).normalized;
 
         // Move the player
         MovePlayer(movement);
 
-        if (HP <= 0) {
-            SceneManager.LoadScene(3);
+        if (HP < 0) {
+            HP = 0;
+        }
+
+        if ((HP <= 0) && (!hacks)) {
+            int sceneID = SceneManager.GetActiveScene().buildIndex;
+            if (sceneID == 0) {
+                SceneManager.LoadScene(3);
+            } else if (sceneID == 5) {
+                SceneManager.LoadScene(6);
+            }
         }
     }
 
@@ -62,8 +82,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Hit() {
-        hit.Play();
-        StartCoroutine(iframe());
+        if (!hacks) {
+            hit.Play();
+            StartCoroutine(iframe());
+        }
     }
 
     IEnumerator iframe()
