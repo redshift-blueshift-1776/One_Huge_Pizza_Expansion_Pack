@@ -43,8 +43,9 @@ public class Projectile : MonoBehaviour
     {
         if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {
-                player.GetComponent<PlayerMovement>().HP -= 1;
                 player.GetComponent<PlayerMovement>().Hit();
+                player.GetComponent<PlayerMovement>().HP -= 1;
+                Destroy(gameObject);
             }
             Destroy(gameObject);
         }

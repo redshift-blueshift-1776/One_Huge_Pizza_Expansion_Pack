@@ -22,14 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] GameObject weapon;
 
-    private AudioSource hit;
+    public AudioSource hit;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         HP = 5;
         og = GetComponent<Renderer>().material.color;
-        hit = GameObject.Find("Hit").GetComponent<AudioSource>();
+        hit = GameObject.Find("hit").GetComponent<AudioSource>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
     }
     
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         // Move the player
         MovePlayer(movement);
 
-        if (HP == 0) {
+        if (HP <= 0) {
             SceneManager.LoadScene(3);
         }
     }
