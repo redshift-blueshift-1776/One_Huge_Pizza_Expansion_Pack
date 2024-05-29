@@ -142,10 +142,9 @@ public class BossEnemyLevel3 : MonoBehaviour
     {
         isInvincible = true;
         yield return new WaitForSeconds(.5f);
-        Instantiate(pepperoni, spawnpoints[0]);
         Instantiate(pepperoni, spawnpoints[1]);
-        Instantiate(pepperoni, spawnpoints[6]);
-        Instantiate(pepperoni, spawnpoints[7]);
+        Instantiate(pepperoni, spawnpoints[5]);
+        Instantiate(pepperoni, spawnpoints[4]);
         isInvincible = false;
         yield return null;
     }
@@ -183,10 +182,13 @@ public class BossEnemyLevel3 : MonoBehaviour
                 shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
                 (player.transform.position.y - transform.position.y) / d,0), 8f);
             }
-            if (frameDif % 840 == 0) {
-                Instantiate(graphQuestionAttack, transform.position, transform.rotation);
-                graphQuestionAttack.GetComponent<GraphQuestionEnemy>().framesToAttack = 240;
-                graphQuestionAttack.GetComponent<GraphQuestionEnemy>().permutation = 1;
+            if (frameDif % 480 == 0) {
+                Instantiate(graphQuestionAttack, spawnpoints[0]);
+                graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
+                graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
+            }
+            if (frameDif % 480 == 240) {
+                Instantiate(pepperoni, spawnpoints[1]);
             }
         }
     }
@@ -223,6 +225,12 @@ public class BossEnemyLevel3 : MonoBehaviour
 
     void Attack2()
     {
+        int frameDif = Time.frameCount - saveFrame;
+        if (frameDif % 480 == 0) {
+            Instantiate(graphQuestionAttack, player.transform);
+            graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
+            graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
+        }
         if (phase == 1) {
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
             if (transform.position.x < -5) {

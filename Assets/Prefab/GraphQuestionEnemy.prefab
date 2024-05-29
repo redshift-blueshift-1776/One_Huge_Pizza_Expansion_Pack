@@ -236,5 +236,5 @@ MonoBehaviour:
   flippedSprite: {fileID: 21300000, guid: 19cccc6e3105e4ae9aa7597088922f96, type: 3}
   attackNumber: 0
   framesToAttack: 240
-  goToPosition: {x: -5.725265, y: 16.105007, z: 0}
+  goToPosition: {x: -9.272792, y: 4.702442, z: 0}
   attackDirection: {x: 0, y: 0, z: 0}

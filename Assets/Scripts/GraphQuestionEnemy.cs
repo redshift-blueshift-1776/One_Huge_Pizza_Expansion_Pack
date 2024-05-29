@@ -51,6 +51,9 @@ public class GraphQuestionEnemy : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         objectToMove.transform.position = end;
+        yield return new WaitForSeconds(seconds);
+        Vector3 vec = new Vector3(.05f, .05f, .05f);
+        shootBullet(vec, attackDirection, 8f);
     }
 
     // Start is called before the first frame update
@@ -62,16 +65,18 @@ public class GraphQuestionEnemy : MonoBehaviour
         splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
         storeFrame = Time.frameCount;
-        float timeToMove = framesToAttack / 60.0f;
-        MoveOverSeconds(gameObject, goToPosition, timeToMove);
+        float timeToMove = 0.5f * framesToAttack / 60.0f;
+        StartCoroutine(MoveOverSeconds(gameObject, goToPosition, timeToMove));
     }
 
     // Update is called once per frame
     void Update()
     {
+        float timeToMove = 0.5f * framesToAttack / 60.0f;
         if (Time.frameCount - storeFrame >= framesToAttack * (0.5 + attackNumber * 0.1)) {
             GetComponent<Renderer>().material.color = transparent;
         }
+        StartCoroutine(waitAndDespawn());
 
         if(IsPlayerInRange(range) && currState != EnemyState.Die)
         {
@@ -97,6 +102,12 @@ public class GraphQuestionEnemy : MonoBehaviour
         if (gotHit) {
             transform.position += new Vector3(Mathf.Sin(Time.time * 100f) * 0.03f, 0f, 0f);
         }
+    }
+
+    private IEnumerator waitAndDespawn() {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D c)
