@@ -53,11 +53,6 @@ public class BossEnemyLevel2 : MonoBehaviour
 
     [SerializeField] AudioSource audioController;
 
-    //Play the music
-    bool m_Play;
-    //Detect when you use the toggle, ensures music isn't played multiple times
-    bool m_ToggleChange;
-
     public AudioClip phase2;
     public AudioClip phase3;
 
@@ -82,8 +77,7 @@ public class BossEnemyLevel2 : MonoBehaviour
         splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
-        transparent = new Color(og.r, og.g, og.b, 0.5f);
-        m_Play = true;
+        saveFrame = Time.frameCount;
     }
 
     // Update is called once per frame
@@ -195,18 +189,21 @@ public class BossEnemyLevel2 : MonoBehaviour
             moveSpeed = -5;
         }
         if (phase == 1) {
-            if (Time.frameCount % 60 == 30) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0,-1,0), 8f);
-                shootBullet(vec, new Vector3(0,1,0), 8f);
-                shootBullet(vec, new Vector3(1,0,0), 8f);
-                shootBullet(vec, new Vector3(-1,0,0), 8f);
-            }
-            if (Time.frameCount % 60 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                float d = Vector3.Distance(transform.position, player.transform.position);
-                shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
-                (player.transform.position.y - transform.position.y) / d,0), 8f);
+            int frameDif = Time.frameCount - saveFrame;
+            if (frameDif >= 240) {
+                if (frameDif % 60 == 30) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    shootBullet(vec, new Vector3(0,-1,0), 8f);
+                    shootBullet(vec, new Vector3(0,1,0), 8f);
+                    shootBullet(vec, new Vector3(1,0,0), 8f);
+                    shootBullet(vec, new Vector3(-1,0,0), 8f);
+                }
+                if (frameDif % 60 == 0) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 8f);
+                }
             }
         }
         if ((phase == 2) && ((Time.frameCount - saveFrame) % 960 == 0)) {
