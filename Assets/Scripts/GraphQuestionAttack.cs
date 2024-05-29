@@ -84,19 +84,6 @@ public class GraphQuestionAttack : MonoBehaviour
         newBullet.GetComponent<Projectile>().speed = speed;
     }
 
-    public IEnumerator MoveOverSeconds (GameObject objectToMove, Vector3 end, float seconds)
-    {
-        float elapsedTime = 0;
-        Vector3 startingPos = objectToMove.transform.position;
-        while (elapsedTime < seconds)
-        {
-            objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-        objectToMove.transform.position = end;
-    }
-
     // Update is called once per frame
     void Update()
     {

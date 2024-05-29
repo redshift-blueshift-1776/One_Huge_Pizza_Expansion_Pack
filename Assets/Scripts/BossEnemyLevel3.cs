@@ -186,6 +186,7 @@ public class BossEnemyLevel3 : MonoBehaviour
             if (frameDif % 840 == 0) {
                 Instantiate(graphQuestionAttack, transform.position, transform.rotation);
                 graphQuestionAttack.GetComponent<GraphQuestionEnemy>().framesToAttack = 240;
+                graphQuestionAttack.GetComponent<GraphQuestionEnemy>().permutation = 1;
             }
         }
     }
