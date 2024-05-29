@@ -22,10 +22,10 @@ public class GraphQuestionAttack : MonoBehaviour
 
     [SerializeField] GameObject bullet;
     [SerializeField] Sprite deadSprite;
-    [SerializeField] Sprite enemy1;
-    [SerializeField] Sprite enemy2;
-    [SerializeField] Sprite enemy3;
-    [SerializeField] Sprite enemy4;
+    [SerializeField] GameObject enemy1;
+    [SerializeField] GameObject enemy2;
+    [SerializeField] GameObject enemy3;
+    [SerializeField] GameObject enemy4;
 
     private AudioSource splat;
     // Start is called before the first frame update
@@ -39,7 +39,24 @@ public class GraphQuestionAttack : MonoBehaviour
         Instantiate(enemy2, transform.position, transform.rotation);
         Instantiate(enemy3, transform.position, transform.rotation);
         Instantiate(enemy4, transform.position, transform.rotation);
-        Vector3 center = player.transform.position;
+        enemy1.GetComponent<GraphQuestionEnemy>().framesToAttack = framesToAttack;
+        enemy2.GetComponent<GraphQuestionEnemy>().framesToAttack = framesToAttack;
+        enemy3.GetComponent<GraphQuestionEnemy>().framesToAttack = framesToAttack;
+        enemy4.GetComponent<GraphQuestionEnemy>().framesToAttack = framesToAttack;
+        int offset = 1;
+        Vector3 top = new Vector3(player.position.x, (float) player.position.y + offset, 0f);
+        Vector3 right = new Vector3((float) player.position.x + offset, player.position.y, 0f);
+        Vector3 bottom = new Vector3(player.position.x, (float) player.position.y - offset, 0f);
+        Vector3 left = new Vector3((float) player.position.x - offset, player.position.y, 0f);
+        if (permutation <= 6) {
+            enemy1.GetComponent<GraphQuestionEnemy>().goToPosition = top;
+        } else if (permutation <= 12) {
+            enemy1.GetComponent<GraphQuestionEnemy>().goToPosition = right;
+        } else if (permutation <= 18) {
+            enemy1.GetComponent<GraphQuestionEnemy>().goToPosition = bottom;
+        } else {
+            enemy1.GetComponent<GraphQuestionEnemy>().goToPosition = left;
+        }
     }
 
     public void setSource(Transform t) {

@@ -1849,6 +1849,7 @@ GameObject:
   - component: {fileID: 1310024045}
   - component: {fileID: 1310024051}
   - component: {fileID: 1310024052}
+  - component: {fileID: 1310024053}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -2067,7 +2068,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310024044}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd8a42b27fe7d40b786eaf63433f5f33, type: 3}
   m_Name: 
@@ -2098,6 +2099,46 @@ MonoBehaviour:
   phase3: {fileID: 8300000, guid: a07932833f91a46c9aca1399fb8cafd6, type: 3}
   phase1Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
   phase2Sprite: {fileID: 21300000, guid: fdb5b1d4556724cc6a452172620159ef, type: 3}
+  phase34Sprite: {fileID: 21300000, guid: 45392dc621618416bbb0379dbc4bfa4e, type: 3}
+--- !u!114 &1310024053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310024044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a5fbcbf8d1c483485b4b75bbacaf89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  enemyType: 2
+  currState: 3
+  range: 10
+  moveSpeed: 5
+  HP: 4000
+  maxHP: 4000
+  player: {fileID: 596536071}
+  bullet: {fileID: 5684926617162620279, guid: cddc23e78cefa4d80b7d8d8598461a46, type: 3}
+  deadSprite: {fileID: 21300000, guid: 6720d63db2d954c2aa2eeb44b7d0a8b4, type: 3}
+  normalSprite: {fileID: 21300000, guid: fe7d38d7a89bf48b38318c242248c5d0, type: 3}
+  flippedSprite: {fileID: 21300000, guid: fdb5b1d4556724cc6a452172620159ef, type: 3}
+  phase: 1
+  bossHealthBar: {fileID: 729195953}
+  xBound: 0
+  isInvincible: 0
+  spawnpoints: []
+  pepperoni: {fileID: 3404898258225515554, guid: 87e2323b1ff0b434a9989bf67e1b1c57, type: 3}
+  mushroom: {fileID: 6186110321195424387, guid: 4a1de3fb007f045a5b2edc3c13e22f79, type: 3}
+  tomato: {fileID: 2932864712686357955, guid: 1c8c2ac6cad6f431688b188ae84b4b61, type: 3}
+  graphQuestionAttack: {fileID: 2932864712686357955, guid: 95242b24031654f3dab811727e94f794, type: 3}
+  sceneSwitcher: {fileID: 1790353663}
+  audioController: {fileID: 1842901706}
+  phase2: {fileID: 0}
+  phase3: {fileID: 0}
+  phase1Sprite: {fileID: 21300000, guid: bb04875755ee849cd901f4ed2826feed, type: 3}
+  phase2Sprite: {fileID: 21300000, guid: fe7d38d7a89bf48b38318c242248c5d0, type: 3}
   phase34Sprite: {fileID: 21300000, guid: 45392dc621618416bbb0379dbc4bfa4e, type: 3}
 --- !u!1 &1394527307
 GameObject:

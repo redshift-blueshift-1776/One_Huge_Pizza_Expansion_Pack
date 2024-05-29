@@ -15,9 +15,8 @@ GameObject:
   - component: {fileID: 8378649112535680676}
   - component: {fileID: 6824758664524249628}
   - component: {fileID: -1908401458688202850}
-  - component: {fileID: -2222809239152625136}
   m_Layer: 0
-  m_Name: GraphQuestionAttack
+  m_Name: GraphQuestionEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 386194036b6654ad9bd5e8df7134793f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3daf7312f1ee4fd9a5f0753b6a64915, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,7 +217,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2932864712686357955}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e661eee6c6c14a929bd6786a6ac07e3, type: 3}
   m_Name: 
@@ -236,29 +235,6 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: f3daf7312f1ee4fd9a5f0753b6a64915, type: 3}
   flippedSprite: {fileID: 21300000, guid: 19cccc6e3105e4ae9aa7597088922f96, type: 3}
   attackNumber: 0
-  framesToAttack: 240
+  framesToAttack: 0
   goToPosition: {x: 0, y: 0, z: 0}
   attackDirection: {x: 0, y: 0, z: 0}
---- !u!114 &-2222809239152625136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2932864712686357955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158355978a79441af94e75cac0eaa8cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  framesToAttack: 0
-  player: {fileID: 0}
-  startingPos: {x: 0, y: 0, z: 0}
-  permutation: 0
-  weapon: {fileID: 0}
-  bullet: {fileID: 5684926617162620279, guid: cddc23e78cefa4d80b7d8d8598461a46, type: 3}
-  deadSprite: {fileID: 0}
-  enemy1: {fileID: 2932864712686357955}
-  enemy2: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
-  enemy3: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
-  enemy4: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}

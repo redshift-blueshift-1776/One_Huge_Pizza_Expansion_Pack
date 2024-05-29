@@ -48,6 +48,7 @@ public class BossEnemyLevel3 : MonoBehaviour
     [SerializeField] GameObject pepperoni;
     [SerializeField] GameObject mushroom;
     [SerializeField] GameObject tomato;
+    [SerializeField] GameObject graphQuestionAttack;
 
     [SerializeField] GameObject sceneSwitcher;
 
@@ -167,51 +168,24 @@ public class BossEnemyLevel3 : MonoBehaviour
         } else if (transform.position.x > 5) {
             moveSpeed = -5;
         }
-        if (phase == 1) {
-            int frameDif = Time.frameCount - saveFrame;
-            if (frameDif >= 240) {
-                if (frameDif % 60 == 30) {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    shootBullet(vec, new Vector3(0,-1,0), 8f);
-                    shootBullet(vec, new Vector3(0,1,0), 8f);
-                    shootBullet(vec, new Vector3(1,0,0), 8f);
-                    shootBullet(vec, new Vector3(-1,0,0), 8f);
-                }
-                if (frameDif % 60 == 0) {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    float d = Vector3.Distance(transform.position, player.transform.position);
-                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
-                    (player.transform.position.y - transform.position.y) / d,0), 8f);
-                }
-            }
-        }
-        if ((phase == 2) && ((Time.frameCount - saveFrame) % 960 == 0)) {
-            int frameDif = Time.frameCount - saveFrame;
-            if (frameDif % 960 == 0) {
-                Instantiate(pepperoni, spawnpoints[0]);
-                Instantiate(pepperoni, spawnpoints[1]);
-            }
-        }
-        if (phase == 3) {
-            int frameDif = Time.frameCount - saveFrame;
-            if (frameDif % 60 == 0) {
+        int frameDif = Time.frameCount - saveFrame;
+        if (frameDif >= 240) {
+            if (frameDif % 60 == 30) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0,-1,0), 8f);
+                shootBullet(vec, new Vector3(0,1,0), 8f);
+                shootBullet(vec, new Vector3(1,0,0), 8f);
+                shootBullet(vec, new Vector3(-1,0,0), 8f);
+            }
+            if (frameDif % 60 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
                 float d = Vector3.Distance(transform.position, player.transform.position);
                 shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
                 (player.transform.position.y - transform.position.y) / d,0), 8f);
             }
-            if (frameDif % 60 == 15) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(1,0,0), 8f);
-            }
-            if (frameDif % 60 == 30) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0,1,0), 8f);
-            }
-            if (frameDif % 60 == 45) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(-1,0,0), 8f);
+            if (frameDif % 840 == 0) {
+                Instantiate(graphQuestionAttack, transform.position, transform.rotation);
+                graphQuestionAttack.GetComponent<GraphQuestionEnemy>().framesToAttack = 240;
             }
         }
     }
