@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1469165360351167530}
   - component: {fileID: 5299346639722139542}
-  - component: {fileID: 1916132819563861193}
   - component: {fileID: 2699120098500012202}
   - component: {fileID: 8378649112535680676}
   - component: {fileID: 6824758664524249628}
   - component: {fileID: -2222809239152625136}
+  - component: {fileID: -1216972757042252932}
   m_Layer: 0
   m_Name: GraphQuestionAttack
   m_TagString: Untagged
@@ -89,33 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1916132819563861193
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2932864712686357955}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &2699120098500012202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2932864712686357955}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 158355978a79441af94e75cac0eaa8cb, type: 3}
   m_Name: 
@@ -233,3 +206,19 @@ MonoBehaviour:
   enemy2: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
   enemy3: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
   enemy4: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
+  spawnpoints: []
+--- !u!114 &-1216972757042252932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932864712686357955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2da9a89fc90643beb7747f7c8d9f02f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2932864712686357955, guid: c6ef7e84acde84b7b842a2c9b81ba91e, type: 3}
+  spawnDistance: 2
+  seed: 1234

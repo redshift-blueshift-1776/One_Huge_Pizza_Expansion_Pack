@@ -183,13 +183,16 @@ public class BossEnemyLevel3 : MonoBehaviour
                 (player.transform.position.y - transform.position.y) / d,0), 8f);
             }
             if (frameDif % 480 == 0) {
-                Instantiate(graphQuestionAttack, spawnpoints[0]);
-                graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
-                graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
+                //Instantiate(graphQuestionAttack, spawnpoints[0]);
+                //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
+                //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
             }
             if (frameDif % 480 == 240) {
                 Instantiate(pepperoni, spawnpoints[1]);
             }
+        }
+        if (Time.frameCount % 960 == 0) {
+            changeAttack(2);
         }
     }
 
@@ -225,110 +228,41 @@ public class BossEnemyLevel3 : MonoBehaviour
 
     void Attack2()
     {
+        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+        if (transform.position.y < -5) {
+            moveSpeed = 3;
+        } else if (transform.position.y > 5) {
+            moveSpeed = -3;
+        }
         int frameDif = Time.frameCount - saveFrame;
         if (frameDif % 480 == 0) {
-            Instantiate(graphQuestionAttack, player.transform);
-            graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
-            graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
+            Instantiate(new GraphQuestionEnemySpawner2(), player.transform);
+            //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
+            //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
         }
-        if (phase == 1) {
+        if ((Time.frameCount + 0) % 120 == 0) {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            shootBullet(vec, new Vector3(1,0,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,1,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-1,0,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,-0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,-1,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,-0.6f,0), 5f);
+        }
+        if ((Time.frameCount + 0) % 60 >= 45) {
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-            if (transform.position.x < -5) {
-                moveSpeed = 5;
-            } else if (transform.position.x > 5) {
-                moveSpeed = -5;
-            }
-            if ((Time.frameCount + 0) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(1,0,0), 8f);
-            }
-            if ((Time.frameCount + 10) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
-            }
-            if ((Time.frameCount + 20) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 30) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 40) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 50) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(1,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 60) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 70) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 80) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
-            }
-            if ((Time.frameCount + 90) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
-            }
-            if ((Time.frameCount + 100) % 120 == 0) {
-                Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
-            }
         }
-
-        if (phase == 2) {
-            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
-            if (transform.position.y < -5) {
-                moveSpeed = 5;
-            } else if (transform.position.y > 5) {
-                moveSpeed = -5;
-            }
+        if ((Time.frameCount + 0) % 60 < 15) {
+            transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
         }
-
-        if (phase == 3) {
-            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-            if (transform.position.x < -5) {
-                moveSpeed = 3;
-            } else if (transform.position.x > 5) {
-                moveSpeed = -3;
-            }
-            if (Time.frameCount % 15 == 0) {
-                if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
-                    || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    shootBullet(vec, new Vector3(0,-1,0), 2f);
-                    shootBullet(vec, new Vector3(0,1,0), 2f);
-                    shootBullet(vec, new Vector3(1,0,0), 2f);
-                    shootBullet(vec, new Vector3(-1,0,0), 2f);
-                    shootBullet(vec, new Vector3(-1,-1,0), 2f);
-                    shootBullet(vec, new Vector3(1,1,0), 2f);
-                    shootBullet(vec, new Vector3(1,-1,0), 2f);
-                    shootBullet(vec, new Vector3(-1,1,0), 2f);
-                } else {
-                    Vector3 vec = new Vector3(.05f, .05f, .05f);
-                    float d = Vector3.Distance(transform.position, player.transform.position);
-                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
-                    (player.transform.position.y - transform.position.y) / d,0), 9f); //change to point at player
-                }
-            }
-        }
-
-        if (phase % 2 == 1) {
-            if (Time.frameCount % 540 == 0) {
-                changeAttack(1);
-            }
-        } else {
-            if (Time.frameCount % 480 == 0) {
-                changeAttack(1);
-            }
+        if (Time.frameCount % 960 == 0) {
+            changeAttack(1);
         }
     }
 

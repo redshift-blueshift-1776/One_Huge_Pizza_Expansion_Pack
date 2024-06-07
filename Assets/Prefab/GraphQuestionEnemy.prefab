@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1469165360351167530}
   - component: {fileID: 5299346639722139542}
-  - component: {fileID: 1916132819563861193}
   - component: {fileID: 2699120098500012202}
   - component: {fileID: 8378649112535680676}
   - component: {fileID: 6824758664524249628}
   - component: {fileID: -1908401458688202850}
+  - component: {fileID: 4185979028542618555}
   m_Layer: 0
   m_Name: GraphQuestionEnemy
   m_TagString: Untagged
@@ -89,33 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1916132819563861193
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2932864712686357955}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &2699120098500012202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2932864712686357955}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e661eee6c6c14a929bd6786a6ac07e3, type: 3}
   m_Name: 
@@ -234,7 +207,21 @@ MonoBehaviour:
   deadSprite: {fileID: 21300000, guid: ab547c03a435f4d16ad27a7676c8a97d, type: 3}
   normalSprite: {fileID: 21300000, guid: f3daf7312f1ee4fd9a5f0753b6a64915, type: 3}
   flippedSprite: {fileID: 21300000, guid: 19cccc6e3105e4ae9aa7597088922f96, type: 3}
-  attackNumber: 0
+  attackNumber: 4
   framesToAttack: 240
-  goToPosition: {x: -9.272792, y: 4.702442, z: 0}
-  attackDirection: {x: 0, y: 0, z: 0}
+  goToPosition: {x: -0.18179226, y: 13.242922, z: 0}
+  attackDirection: {x: 1, y: 1, z: 0}
+--- !u!114 &4185979028542618555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932864712686357955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28f28a3a197244c68e2b1d75d89ef4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5684926617162620279, guid: 0db93934ef3f44025b6d1aad958d4013, type: 3}
+  bulletSpeed: 5

@@ -63,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Move the player
         MovePlayer(movement);
+        if (HP < 0) {
+            HP = 0;
+        }
 
         if ((HP <= 0) && (!hacks)) {
             int sceneID = SceneManager.GetActiveScene().buildIndex;
