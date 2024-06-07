@@ -180,7 +180,7 @@ public class BossEnemyLevel1 : MonoBehaviour
             shootBullet(vec, new Vector3(0,-1,0), 8f);
             shootBullet(vec, new Vector3(0,1,0), 8f);
             shootBullet(vec, new Vector3(1,0,0), 8f);
-            shootBullet(vec, new Vector3(0,-1,0), 8f);
+            shootBullet(vec, new Vector3(-1,0,0), 8f);
         }
         if (Time.frameCount % 120 == 60) {
             Vector3 vec = new Vector3(.05f, .05f, .05f);

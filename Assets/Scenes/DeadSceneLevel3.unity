@@ -350,7 +350,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 7
+          m_IntArgument: 11
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -420,7 +420,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1406c0e9ad49e4176821e54870ef6d04, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c16080379b57f43489f5820ae23ca3df, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

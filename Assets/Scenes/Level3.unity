@@ -1720,6 +1720,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaticBarrier
       objectReference: {fileID: 0}
+    - target: {fileID: 2220891266042501860, guid: 1b265c0fe710d420c8664d5b417283cd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4017396595258715640, guid: 1b265c0fe710d420c8664d5b417283cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

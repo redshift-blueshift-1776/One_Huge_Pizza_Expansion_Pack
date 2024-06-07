@@ -212,6 +212,12 @@ public class BossEnemyLevel2 : MonoBehaviour
                 Instantiate(pepperoni, spawnpoints[0]);
                 Instantiate(pepperoni, spawnpoints[1]);
             }
+            if (frameDif % 60 == 0) {
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
+                    float d = Vector3.Distance(transform.position, player.transform.position);
+                    shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+                    (player.transform.position.y - transform.position.y) / d,0), 8f);
+                }
         }
         if (phase == 3) {
             int frameDif = Time.frameCount - saveFrame;

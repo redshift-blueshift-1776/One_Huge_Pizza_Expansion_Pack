@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
                 SceneManager.LoadScene(6);
             } else if (sceneID == 7) {
                 SceneManager.LoadScene(8);
+            } else if (sceneID == 11) {
+                SceneManager.LoadScene(12);
             }
         }
     }
