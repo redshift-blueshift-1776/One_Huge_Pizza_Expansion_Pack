@@ -25,11 +25,13 @@ public class UIController : MonoBehaviour
     void Update()
     {
         playerHealth = player.GetComponent<PlayerMovement>().HP;
-        for (int i = 0; i < playerHealth; i++) {
+        if (playerHealth >= 0) {
+            for (int i = 0; i < playerHealth; i++) {
             healthObjects[i].GetComponent<RawImage>().texture = full_heart;
-        }
-        for (int i = playerHealth; i < 5; i++) {
-            healthObjects[i].GetComponent<RawImage>().texture = empty_heart;
+            }
+            for (int i = playerHealth; i < 5; i++) {
+                healthObjects[i].GetComponent<RawImage>().texture = empty_heart;
+            }
         }
     }
 }

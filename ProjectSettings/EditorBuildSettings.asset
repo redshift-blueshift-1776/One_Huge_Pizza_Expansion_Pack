@@ -44,4 +44,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeadSceneLevel3.unity
     guid: 22213d29f63034697a8b6de12a593493
+  - enabled: 1
+    path: Assets/Scenes/DeadSceneLevel4.unity
+    guid: 8db33c44593ed47d39eb65c867c6eefb
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: f5e1801da98424d64a6b8ad4ca6fa45d
   m_configObjects: {}

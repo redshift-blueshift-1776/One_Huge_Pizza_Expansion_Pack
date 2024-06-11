@@ -32,12 +32,13 @@ public class LineAttack : MonoBehaviour
         og = GetComponent<Renderer>().material.color;
         transparent = new Color(og.r, og.g, og.b, 0.5f);
         storeFrame = Time.frameCount;
-        
-        double[] result = numbersForLineThing(0, 0,
-            player.position.x, player.position.y);
-        float turn = UnityEngine.Random.Range(0f, 360f);
-        transform.RotateAround(transform.position, Vector3.forward, turn);
-        rotation = (turn + rotation) % 360;
+        //float old_rotation = rotation;
+        rotation = UnityEngine.Random.Range(0f, 360f);
+        transform.RotateAround(transform.position, Vector3.forward, rotation);
+        //transform.LookAt(player);
+        Vector3 vec = new Vector3(.05f, .05f, .05f);
+        shootBullet(vec, transform.up, 5f);
+        shootBullet(vec, -1 * transform.up, 5f);
         //rotation = (float) result[2];
         //MoveOverSeconds(gameObject, new Vector3((float) result[0], (float) result[1], 0f), 1f);
         //MoveOverSeconds(gameObject, new Vector3(xstart, ystart, 0f), 1f);
@@ -51,10 +52,12 @@ public class LineAttack : MonoBehaviour
         if (frameDif > 60) {
             if (frameDif % 6 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3((float) Math.Sin(Math.PI / 180 * rotation),
-                    - 1 * (float) Math.Cos(Math.PI / 180 * rotation), 0), 10f);
-                shootBullet(vec, new Vector3(-1 * (float) Math.Sin(Math.PI / 180 * rotation),
-                    (float) Math.Cos(Math.PI / 180 * rotation), 0), 10f);
+                // shootBullet(vec, new Vector3((float) Math.Sin(Math.PI / 180 * rotation),
+                //     - 1 * (float) Math.Cos(Math.PI / 180 * rotation), 0), 10f);
+                // shootBullet(vec, new Vector3(-1 * (float) Math.Sin(Math.PI / 180 * rotation),
+                //     (float) Math.Cos(Math.PI / 180 * rotation), 0), 10f);
+                shootBullet(vec, transform.up, 10f);
+                shootBullet(vec, -1 * transform.up, 10f);
             }
         }
         if (frameDif > 120) {
