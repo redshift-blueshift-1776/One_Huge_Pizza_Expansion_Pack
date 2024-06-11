@@ -48,7 +48,8 @@ public class BossEnemyLevel4 : MonoBehaviour
     [SerializeField] GameObject pepperoni;
     [SerializeField] GameObject mushroom;
     [SerializeField] GameObject tomato;
-    [SerializeField] GameObject graphQuestionAttack;
+    //[SerializeField] GameObject graphQuestionAttack;
+    [SerializeField] GameObject LineAttack;
 
     [SerializeField] GameObject sceneSwitcher;
 
@@ -202,8 +203,9 @@ public class BossEnemyLevel4 : MonoBehaviour
                 shootBullet(vec, new Vector3(0.4f,-0.4f,0), 3f);
                 shootBullet(vec, new Vector3(0.2f,-0.4f,0), 3f);
             }
-            if (frameDif % 480 == 0) {
+            if (frameDif % 240 == 0) {
                 //Instantiate(graphQuestionAttack, spawnpoints[0]);
+                Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
                 //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
                 //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
             }
@@ -256,8 +258,9 @@ public class BossEnemyLevel4 : MonoBehaviour
             moveSpeed = -3;
         }
         int frameDif = Time.frameCount - saveFrame;
-        if (frameDif % 480 == 0) {
-            Instantiate(new GraphQuestionEnemySpawner2(), player.transform);
+        if (frameDif % 240 == 0) {
+            //Instantiate(graphQuestionAttack, spawnpoints[0]);
+            Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
             //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
             //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
         }
@@ -286,10 +289,10 @@ public class BossEnemyLevel4 : MonoBehaviour
             (player.transform.position.y - transform.position.y) / d,0), 8f);
         }
         if ((Time.frameCount + 0) % 60 >= 45) {
-            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            transform.Translate(Vector3.right * 2 * Time.deltaTime * moveSpeed);
         }
         if ((Time.frameCount + 0) % 60 < 15) {
-            transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
+            transform.Translate(Vector3.left * 2 * Time.deltaTime * moveSpeed);
         }
         if (Time.frameCount % 960 == 0) {
             changeAttack(1);
