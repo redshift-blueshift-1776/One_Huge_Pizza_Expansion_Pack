@@ -316,7 +316,7 @@ public class BossEnemyLevel5 : MonoBehaviour
                 moveSpeed = -3;
             }
             if ((Time.frameCount % 120 == 0) || (Time.frameCount % 120 == 75) || (Time.frameCount % 120 == 90) || (Time.frameCount % 120 == 105)) {
-                Vector3 vec = new Vector3(.03f, .03f, .03f);
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0,-1,0), 9f);
                 shootBullet(vec, new Vector3(0,1,0), 9f);
                 shootBullet(vec, new Vector3(1,0,0), 9f);
@@ -325,7 +325,6 @@ public class BossEnemyLevel5 : MonoBehaviour
                 shootBullet(vec, new Vector3(0.5f,0.5f,0), 9f);
                 shootBullet(vec, new Vector3(0.5f,-0.5f,0), 9f);
                 shootBullet(vec, new Vector3(-0.5f,0.5f,0), 9f);
-                vec = new Vector3(.05f, .05f, .05f);
                 float d = Vector3.Distance(transform.position, player.transform.position);
                 shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
                 (player.transform.position.y - transform.position.y) / d,0), 6f); //change to point at player
