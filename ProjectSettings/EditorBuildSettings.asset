@@ -50,4 +50,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level4.unity
     guid: f5e1801da98424d64a6b8ad4ca6fa45d
+  - enabled: 1
+    path: Assets/Scenes/WinSceneLevel3.unity
+    guid: 03279f8ea1e6841228d5e3a5cb28240d
+  - enabled: 1
+    path: Assets/Scenes/DeadSceneLevel5.unity
+    guid: 2af9dc130790b4d368cd2e5219d8887a
   m_configObjects: {}

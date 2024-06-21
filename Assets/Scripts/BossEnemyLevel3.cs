@@ -290,7 +290,7 @@ public class BossEnemyLevel3 : MonoBehaviour
         }
         GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(15);
         Destroy(gameObject);
         yield return null;
     }
