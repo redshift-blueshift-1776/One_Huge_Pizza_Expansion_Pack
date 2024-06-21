@@ -41,13 +41,17 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.name == "Central Barrier") {
+        if (c.name == "StaticBarrier") {
             Destroy(gameObject);
         } else if (c.name == "1HP_MOZZARELLA2") {
             Destroy(gameObject);
         } else if (c.name == "1HP_MOZZARELLA2 (1)") {
             Destroy(gameObject);
         } else if (c.name == "1HP_MOZZARELLA2 (2)") {
+            Destroy(gameObject);
+        } else if (c.name == "1HP_MOZZARELLA2 (3)") {
+            Destroy(gameObject);
+        } else if (c.name == "1HP_MOZZARELLA2 (4)") {
             Destroy(gameObject);
         } else if (c.name == "Player") {
             if (!player.GetComponent<PlayerMovement>().isInvincible) {

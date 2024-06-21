@@ -136,21 +136,20 @@ public class BossEnemyLevel5 : MonoBehaviour
 
         if (phase == 2) {
 
-            if (Time.frameCount % 480 == 240) {
+            if (Time.frameCount % 960 == 0) {
                 Instantiate(pepperoni, spawnpoints[1]);
                 Instantiate(pepperoni, spawnpoints[6]);
             }
 
-            if ((Time.frameCount) % 960 == 0) {
+            if ((Time.frameCount) % 1920 == 0) {
                 Instantiate(pepperoni, spawnpoints[0]);
-                Instantiate(pepperoni, spawnpoints[7]);
                 Instantiate(pepperoni, spawnpoints[5]);
             }
         }
 
         if (phase == 4) {
 
-            if (Time.frameCount % 960 == 240) {
+            if (Time.frameCount % (1920 * 2) == 0) {
                 Instantiate(pepperoni, spawnpoints[1]);
                 Instantiate(pepperoni, spawnpoints[2]);
                 Instantiate(pepperoni, spawnpoints[3]);
@@ -158,7 +157,7 @@ public class BossEnemyLevel5 : MonoBehaviour
                 Instantiate(pepperoni, spawnpoints[5]);
             }
 
-            if ((Time.frameCount) % 960 == 0) {
+            if ((Time.frameCount) % 1920 == 0) {
                 Instantiate(pepperoni, spawnpoints[6]);
                 Instantiate(pepperoni, spawnpoints[7]);
                 Instantiate(pepperoni, spawnpoints[0]);
@@ -230,23 +229,23 @@ public class BossEnemyLevel5 : MonoBehaviour
             } else if (transform.position.x > 5) {
                 moveSpeed = -5;
             }
-            if (Time.frameCount % 100 == 0) {
+            if (Time.frameCount % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0,-1,0), 8f);
-                shootBullet(vec, new Vector3(-1,-1,0), 4f);
-                shootBullet(vec, new Vector3(1,-1,0), 4f);
+                shootBullet(vec, new Vector3(0,-1,0), 5f);
+                shootBullet(vec, new Vector3(-1,-1,0), 3f);
+                shootBullet(vec, new Vector3(1,-1,0), 3f);
             }
-            if (Time.frameCount % 50 == 0 || Time.frameCount % 40 == 0) {
-                Vector3 vec = new Vector3(.03f, .03f, .03f);
+            if (Time.frameCount % 60 == 0 || Time.frameCount % 60 == 15) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-2,-2,0), 3f);
                 shootBullet(vec, new Vector3(2,-2,0), 3f);
                 shootBullet(vec, new Vector3(-1.5f,-2,0), 3f);
                 shootBullet(vec, new Vector3(1.5f,-2,0), 3f);
             }
-            if (Time.frameCount % 10 == 0) {
-                Vector3 vec = new Vector3(.03f, .03f, .03f);
-                shootBullet(vec, new Vector3(-1,0,0), 10f);
-                shootBullet(vec, new Vector3(1,0,0), 10f);
+            if (Time.frameCount % 30 == 0) {
+                Vector3 vec = new Vector3(.05f, .05f, .05f);
+                shootBullet(vec, new Vector3(-1,0,0), 5f);
+                shootBullet(vec, new Vector3(1,0,0), 5f);
             }
         } 
 
@@ -383,47 +382,47 @@ public class BossEnemyLevel5 : MonoBehaviour
             } else if (transform.position.x > 5) {
                 moveSpeed = -5;
             }
-            if ((Time.frameCount + 0) % 120 == 0) {
+            if ((Time.frameCount + 0) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(1,0,0), 8f);
             }
-            if ((Time.frameCount + 10) % 120 == 0) {
+            if ((Time.frameCount + 20) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
             }
-            if ((Time.frameCount + 20) % 120 == 0) {
+            if ((Time.frameCount + 40) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 30) % 120 == 0) {
+            if ((Time.frameCount + 60) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 40) % 120 == 0) {
+            if ((Time.frameCount + 80) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 50) % 120 == 0) {
+            if ((Time.frameCount + 100) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(1,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 60) % 120 == 0) {
+            if ((Time.frameCount + 120) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 70) % 120 == 0) {
+            if ((Time.frameCount + 140) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 80) % 120 == 0) {
+            if ((Time.frameCount + 160) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
             }
-            if ((Time.frameCount + 90) % 120 == 0) {
+            if ((Time.frameCount + 180) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
             }
-            if ((Time.frameCount + 100) % 120 == 0) {
+            if ((Time.frameCount + 200) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
             }
