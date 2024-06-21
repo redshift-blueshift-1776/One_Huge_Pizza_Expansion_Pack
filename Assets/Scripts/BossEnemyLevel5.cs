@@ -290,7 +290,7 @@ public class BossEnemyLevel5 : MonoBehaviour
             if (Time.frameCount % 15 == 0) {
                 if ((Time.frameCount % 270 == 0) || (Time.frameCount % 270 == 45) || (Time.frameCount % 270 == 90)
                     || (Time.frameCount % 270 == 120) || (Time.frameCount % 270 == 165) || (Time.frameCount % 270 == 210) || (Time.frameCount % 270 == 240)) {
-                    Vector3 vec = new Vector3(.03f, .03f, .03f);
+                    Vector3 vec = new Vector3(.05f, .05f, .05f);
                     shootBullet(vec, new Vector3(0,-1,0), 9f);
                     shootBullet(vec, new Vector3(0,1,0), 9f);
                     shootBullet(vec, new Vector3(1,0,0), 9f);
