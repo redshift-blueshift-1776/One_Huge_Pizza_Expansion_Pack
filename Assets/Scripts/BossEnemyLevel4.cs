@@ -248,11 +248,26 @@ public class BossEnemyLevel4 : MonoBehaviour
 
     void Attack2()
     {
-        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
-        if (transform.position.y < -5) {
-            moveSpeed = 3;
-        } else if (transform.position.y > 5) {
-            moveSpeed = -3;
+        if (HP <= 0.8 * maxHP) {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            if ((Time.frameCount + 0) % 60 >= 45) {
+                transform.Translate(Vector3.right * 2 * Time.deltaTime * moveSpeed);
+            }
+            if ((Time.frameCount + 0) % 60 < 15) {
+                transform.Translate(Vector3.left * 2 * Time.deltaTime * moveSpeed);
+            }
+        } else {
+            if (transform.position.x < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -5;
+            }
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
         }
         int frameDif = Time.frameCount - saveFrame;
         if (frameDif % 240 == 0) {
@@ -284,12 +299,6 @@ public class BossEnemyLevel4 : MonoBehaviour
             float d = Vector3.Distance(transform.position, player.transform.position);
             shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
             (player.transform.position.y - transform.position.y) / d,0), 8f);
-        }
-        if ((Time.frameCount + 0) % 60 >= 45) {
-            transform.Translate(Vector3.right * 2 * Time.deltaTime * moveSpeed);
-        }
-        if ((Time.frameCount + 0) % 60 < 15) {
-            transform.Translate(Vector3.left * 2 * Time.deltaTime * moveSpeed);
         }
         if (Time.frameCount % 960 == 0) {
             changeAttack(1);

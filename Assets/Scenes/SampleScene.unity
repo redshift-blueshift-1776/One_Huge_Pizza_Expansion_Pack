@@ -509,8 +509,10 @@ MonoBehaviour:
   - {fileID: 80996968}
   - {fileID: 1294277526}
   playerHealth: 0
+  playerHacks: 0
   empty_heart: {fileID: 2800000, guid: 879eda090c42745a1a90a37df0f1bbcf, type: 3}
   full_heart: {fileID: 2800000, guid: 616be15c305894f3eb683871b8807dc6, type: 3}
+  hacks: {fileID: 2800000, guid: c955ff1728578458992dce960ca0f271, type: 3}
 --- !u!114 &411141734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +983,7 @@ MonoBehaviour:
   right: d
   HP: 5
   isInvincible: 0
+  hacks: 0
   weapon: {fileID: 853973884}
   hit: {fileID: 562941773}
 --- !u!50 &596536069

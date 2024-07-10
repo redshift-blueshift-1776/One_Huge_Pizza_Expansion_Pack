@@ -62,6 +62,7 @@ public class BossEnemyLevel5 : MonoBehaviour
     [SerializeField] Sprite phase1Sprite;
     [SerializeField] Sprite phase2Sprite;
     [SerializeField] Sprite phase34Sprite;
+    [SerializeField] Sprite phase34Sprite2;
 
     private AudioSource splat;
 
@@ -132,6 +133,7 @@ public class BossEnemyLevel5 : MonoBehaviour
             startedPhase4 = true;
             audioController.clip = phase4;
             audioController.Play();
+            GetComponent<SpriteRenderer>().sprite = phase34Sprite2;
         }
 
         if (phase == 2) {
@@ -202,10 +204,10 @@ public class BossEnemyLevel5 : MonoBehaviour
     {
         isInvincible = true;
         yield return new WaitForSeconds(.5f);
-        Instantiate(tomato, spawnpoints[0]);
-        Instantiate(tomato, spawnpoints[1]);
-        Instantiate(tomato, spawnpoints[6]);
-        Instantiate(tomato, spawnpoints[7]);
+        //Instantiate(tomato, spawnpoints[0]);
+        //Instantiate(tomato, spawnpoints[1]);
+        //Instantiate(tomato, spawnpoints[6]);
+        //Instantiate(tomato, spawnpoints[7]);
         isInvincible = false;
         yield return null;
     }
@@ -384,46 +386,57 @@ public class BossEnemyLevel5 : MonoBehaviour
             if ((Time.frameCount + 0) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(1,0,0), 8f);
+                shootBullet(vec, new Vector3(-1,0,0), 8f);
             }
             if ((Time.frameCount + 20) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
+                shootBullet(vec, new Vector3(-0.5f,0.3f,0), 8f);
             }
             if ((Time.frameCount + 40) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(-0.2f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 60) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(0.2f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 80) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(0.5f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 100) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(1,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(-1,0.5f,0), 8f);
             }
             if ((Time.frameCount + 120) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(0.5f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 140) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(-0.2f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(0.2f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 160) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.2f,-0.5f,0), 8f);
+                shootBullet(vec, new Vector3(-0.2f,0.5f,0), 8f);
             }
             if ((Time.frameCount + 180) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.5f,-0.3f,0), 8f);
+                shootBullet(vec, new Vector3(-0.5f,0.3f,0), 8f);
             }
             if ((Time.frameCount + 200) % 240 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
                 shootBullet(vec, new Vector3(0.7f,-0.2f,0), 8f);
+                shootBullet(vec, new Vector3(-0.7f,0.2f,0), 8f);
             }
         }
 
@@ -499,16 +512,20 @@ public class BossEnemyLevel5 : MonoBehaviour
             } else if (transform.position.y > 5) {
                 moveSpeed = -3;
             }
-            if ((Time.frameCount % 120 == 0) || (Time.frameCount % 120 == 75) || (Time.frameCount % 120 == 90) || (Time.frameCount % 120 == 105)) {
+            if ((Time.frameCount + 0) % 120 == 0) {
                 Vector3 vec = new Vector3(.05f, .05f, .05f);
-                shootBullet(vec, new Vector3(0,-1,0), 2f);
-                shootBullet(vec, new Vector3(0,1,0), 2f);
-                shootBullet(vec, new Vector3(1,0,0), 2f);
-                shootBullet(vec, new Vector3(-1,0,0), 2f);
-                shootBullet(vec, new Vector3(-0.5f,-0.5f,0), 2f);
-                shootBullet(vec, new Vector3(0.5f,0.5f,0), 2f);
-                shootBullet(vec, new Vector3(0.5f,-0.5f,0), 2f);
-                shootBullet(vec, new Vector3(-0.5f,0.5f,0), 2f);
+                shootBullet(vec, new Vector3(1,0,0), 5f);
+                shootBullet(vec, new Vector3(0.8f,0.6f,0), 5f);
+                shootBullet(vec, new Vector3(0.6f,0.8f,0), 5f);
+                shootBullet(vec, new Vector3(0,1,0), 5f);
+                shootBullet(vec, new Vector3(-0.6f,0.8f,0), 5f);
+                shootBullet(vec, new Vector3(-0.8f,0.6f,0), 5f);
+                shootBullet(vec, new Vector3(-1,0,0), 5f);
+                shootBullet(vec, new Vector3(-0.8f,-0.6f,0), 5f);
+                shootBullet(vec, new Vector3(-0.6f,-0.8f,0), 5f);
+                shootBullet(vec, new Vector3(0,-1,0), 5f);
+                shootBullet(vec, new Vector3(0.6f,-0.8f,0), 5f);
+                shootBullet(vec, new Vector3(0.8f,-0.6f,0), 5f);
             }
             if ((Time.frameCount + 0) % 60 >= 45) {
             transform.Translate(Vector3.right * 2 * Time.deltaTime * moveSpeed);
@@ -553,7 +570,7 @@ public class BossEnemyLevel5 : MonoBehaviour
         }
         GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(19);
         Destroy(gameObject);
         yield return null;
     }
