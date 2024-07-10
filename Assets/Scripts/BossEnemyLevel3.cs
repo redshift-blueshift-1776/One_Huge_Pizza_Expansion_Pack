@@ -40,9 +40,6 @@ public class BossEnemyLevel3 : MonoBehaviour
 
     public bool isInvincible = false;
 
-    bool startedPhase2 = false;
-    bool startedPhase3 = false;
-
     public Transform[] spawnpoints;
 
     [SerializeField] GameObject pepperoni;
@@ -188,7 +185,7 @@ public class BossEnemyLevel3 : MonoBehaviour
                 //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
             }
             if (frameDif % 480 == 240) {
-                Instantiate(pepperoni, spawnpoints[1]);
+                Instantiate(pepperoni, spawnpoints[Random.Range(0,7)]);
             }
         }
         if (Time.frameCount % 960 == 0) {
@@ -228,15 +225,32 @@ public class BossEnemyLevel3 : MonoBehaviour
 
     void Attack2()
     {
-        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
-        if (transform.position.y < -5) {
-            moveSpeed = 3;
-        } else if (transform.position.y > 5) {
-            moveSpeed = -3;
+        if (HP <= 0.8 * maxHP) {
+            if (transform.position.y < -5) {
+                moveSpeed = 3;
+            } else if (transform.position.y > 5) {
+                moveSpeed = -3;
+            }
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+            if ((Time.frameCount + 0) % 60 >= 45) {
+                transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+            }
+            if ((Time.frameCount + 0) % 60 < 15) {
+                transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
+            }
+        } else {
+            if (transform.position.x < -5) {
+                moveSpeed = 5;
+            } else if (transform.position.x > 5) {
+                moveSpeed = -5;
+            }
+            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
         }
+        
+        
         int frameDif = Time.frameCount - saveFrame;
         if (frameDif % 480 == 0) {
-            Instantiate(new GraphQuestionEnemySpawner2(), player.transform);
+            //Instantiate(new GraphQuestionEnemySpawner2(), player.transform);
             //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
             //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
         }
@@ -254,12 +268,6 @@ public class BossEnemyLevel3 : MonoBehaviour
             shootBullet(vec, new Vector3(0,-1,0), 5f);
             shootBullet(vec, new Vector3(0.6f,-0.8f,0), 5f);
             shootBullet(vec, new Vector3(0.8f,-0.6f,0), 5f);
-        }
-        if ((Time.frameCount + 0) % 60 >= 45) {
-            transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-        }
-        if ((Time.frameCount + 0) % 60 < 15) {
-            transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
         }
         if (Time.frameCount % 960 == 0) {
             changeAttack(1);

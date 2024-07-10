@@ -16,8 +16,6 @@ public class GraphQuestionAttack : MonoBehaviour
     [SerializeField] GameObject weapon;
     Color og;
     Color transparent;
-
-    private bool gotHit = false;
     GameObject newBullet;
     float storeFrame;
 

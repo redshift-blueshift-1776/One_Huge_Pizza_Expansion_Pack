@@ -40,10 +40,6 @@ public class BossEnemyLevel1 : MonoBehaviour
 
     public bool isInvincible = false;
 
-    bool startedPhase2 = false;
-    bool startedPhase3 = false;
-    bool startedPhase4 = false;
-
     public Transform[] spawnpoints;
 
     [SerializeField] GameObject pepperoni;
@@ -85,7 +81,7 @@ public class BossEnemyLevel1 : MonoBehaviour
         spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);
-        m_Play = true;
+        //m_Play = true;
     }
 
     // Update is called once per frame

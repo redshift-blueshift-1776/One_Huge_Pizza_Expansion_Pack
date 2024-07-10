@@ -40,9 +40,6 @@ public class BossEnemyLevel4 : MonoBehaviour
 
     public bool isInvincible = false;
 
-    bool startedPhase2 = false;
-    bool startedPhase3 = false;
-
     public Transform[] spawnpoints;
 
     [SerializeField] GameObject pepperoni;
@@ -205,7 +202,7 @@ public class BossEnemyLevel4 : MonoBehaviour
             }
             if (frameDif % 240 == 0) {
                 //Instantiate(graphQuestionAttack, spawnpoints[0]);
-                Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
+                Instantiate(LineAttack, spawnpoints[Random.Range(0,7)]);
                 //graphQuestionAttack.GetComponent<GraphQuestionAttack>().framesToAttack = 240;
                 //graphQuestionAttack.GetComponent<GraphQuestionAttack>().permutation = 1;
             }
