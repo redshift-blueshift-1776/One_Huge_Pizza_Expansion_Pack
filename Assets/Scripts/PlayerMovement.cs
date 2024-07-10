@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isInvincible = false;
 
-    private bool hacks = false;
+    public bool hacks = false;
 
     Color og;
     Color transparent;

@@ -11,9 +11,11 @@ public class UIController : MonoBehaviour
     public GameObject[] healthObjects;
 
     public int playerHealth;
+    public bool playerHacks;
 
     public Texture empty_heart;
     public Texture full_heart;
+    public Texture hacks;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +27,19 @@ public class UIController : MonoBehaviour
     void Update()
     {
         playerHealth = player.GetComponent<PlayerMovement>().HP;
-        if (playerHealth >= 0) {
-            for (int i = 0; i < playerHealth; i++) {
-            healthObjects[i].GetComponent<RawImage>().texture = full_heart;
+        playerHacks = player.GetComponent<PlayerMovement>().hacks;
+        if (playerHacks) {
+            for (int i = 0; i < 5; i++) {
+                healthObjects[i].GetComponent<RawImage>().texture = hacks;
             }
-            for (int i = playerHealth; i < 5; i++) {
-                healthObjects[i].GetComponent<RawImage>().texture = empty_heart;
+        } else {
+            if (playerHealth >= 0) {
+                for (int i = 0; i < playerHealth; i++) {
+                healthObjects[i].GetComponent<RawImage>().texture = full_heart;
+                }
+                for (int i = playerHealth; i < 5; i++) {
+                    healthObjects[i].GetComponent<RawImage>().texture = empty_heart;
+                }
             }
         }
     }

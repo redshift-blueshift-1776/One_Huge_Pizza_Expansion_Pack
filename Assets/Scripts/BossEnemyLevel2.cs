@@ -157,6 +157,7 @@ public class BossEnemyLevel2 : MonoBehaviour
 
     void changePhase(int i) {
         phase = i;
+        GetComponent<Renderer>().material.color = og;
     }
 
     private IEnumerator changeAttackPhase()
