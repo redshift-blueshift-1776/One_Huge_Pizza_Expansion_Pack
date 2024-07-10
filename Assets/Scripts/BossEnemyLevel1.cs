@@ -87,6 +87,7 @@ public class BossEnemyLevel1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);
         switch (currState)
         {
             case (EnemyState.Attack1):

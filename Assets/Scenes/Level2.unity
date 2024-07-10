@@ -1316,6 +1316,7 @@ GameObject:
   - component: {fileID: 729195954}
   - component: {fileID: 729195955}
   - component: {fileID: 729195956}
+  - component: {fileID: 729195957}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -1389,7 +1390,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 4000
+  m_MaxValue: 2000
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1402,13 +1403,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729195953}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41e435e675bf4087890b09a4366cc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 729195955}
   bossHealth: 271
+  boss: {fileID: 1310024044}
+--- !u!114 &729195957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729195953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6825afdb72c604550bb2f62486d0becd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 729195955}
+  bossHealth: 300
   boss: {fileID: 1310024044}
 --- !u!1 &803035207
 GameObject:
@@ -2077,8 +2093,8 @@ MonoBehaviour:
   currState: 3
   range: 10
   moveSpeed: 5
-  HP: 4000
-  maxHP: 4000
+  HP: 2000
+  maxHP: 2000
   player: {fileID: 596536071}
   bullet: {fileID: 5684926617162620279, guid: cddc23e78cefa4d80b7d8d8598461a46, type: 3}
   deadSprite: {fileID: 21300000, guid: 6720d63db2d954c2aa2eeb44b7d0a8b4, type: 3}
