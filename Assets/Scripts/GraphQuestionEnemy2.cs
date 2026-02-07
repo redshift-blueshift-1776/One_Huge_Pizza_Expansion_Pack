@@ -11,7 +11,7 @@ public class GraphQuestionEnemy2 : MonoBehaviour
     {
         Vector3 direction = (target - transform.position).normalized;
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        bullet.GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
     }
     // Start is called before the first frame update
     void Start()

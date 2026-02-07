@@ -558,7 +558,7 @@ public class BossEnemyLevel5 : MonoBehaviour
 
     private IEnumerator DieCoroutine()
     {
-        myRigidbody.velocity = new Vector2(0f, 0f);
+        myRigidbody.linearVelocity = new Vector2(0f, 0f);
         Debug.Log("test");
         player.GetComponent<PlayerMovement>().isInvincible = true;
         GetComponent<SpriteRenderer>().sprite = deadSprite;

@@ -207,14 +207,14 @@ public class Enemy : MonoBehaviour
         {
             //target is left
             GetComponent<SpriteRenderer>().sprite = flippedSprite;
-            myRigidbody.velocity = new Vector2(-moveSpeed, 0f);
+            myRigidbody.linearVelocity = new Vector2(-moveSpeed, 0f);
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
         }
         else if (transform.position.x < player.position.x)
         {
             //target is right
             GetComponent<SpriteRenderer>().sprite = normalSprite;
-            myRigidbody.velocity = new Vector2(moveSpeed, 0f);
+            myRigidbody.linearVelocity = new Vector2(moveSpeed, 0f);
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
         }
         
@@ -247,7 +247,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator DieCoroutine()
     {
-        myRigidbody.velocity = new Vector2(0f, 0f);
+        myRigidbody.linearVelocity = new Vector2(0f, 0f);
         GetComponent<SpriteRenderer>().sprite = deadSprite;
         for (int i = 0; i < 5; i++) {
             GetComponent<Renderer>().material.color = transparent;

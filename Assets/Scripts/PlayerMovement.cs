@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(Vector2 movement)
     {
         // Apply movement to the rigidbody
-        rb.velocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed);
+        rb.linearVelocity = new Vector2(movement.x * moveSpeed, movement.y * moveSpeed);
 
         
     }
