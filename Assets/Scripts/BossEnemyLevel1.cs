@@ -90,7 +90,7 @@ public class BossEnemyLevel1 : MonoBehaviour
     void Update()
     {
         int mode = PlayerPrefs.GetInt("useLegacyPhysics", 1);
-        Debug.Log("useLegacyPhysics was: " + mode);
+        // Debug.Log("useLegacyPhysics was: " + mode);
         if (mode == 1)
         {
             bossHealthBar.GetComponent<BossHealth>().SetHealth(HP);

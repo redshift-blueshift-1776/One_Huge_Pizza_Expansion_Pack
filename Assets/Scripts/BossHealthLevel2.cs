@@ -11,7 +11,7 @@ public class BossHealthLevel2 : MonoBehaviour
 
     private void Start()
     {
-        bossHealth = boss.GetComponent<BossEnemy>().HP;
+        bossHealth = boss.GetComponent<BossEnemyLevel2>().HP;
         healthBar = GetComponent<Slider>();
         healthBar.maxValue = 2000;
         healthBar.value = 2000;
