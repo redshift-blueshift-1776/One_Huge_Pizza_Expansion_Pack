@@ -43,8 +43,7 @@ public class Projectile : MonoBehaviour
     {
         if (c.name.Contains("StaticBarrier")) {
             int mode = PlayerPrefs.GetInt("useLegacyPhysics", 1);
-            if (mode == 0)
-            {
+            if (mode == 0) {
                 Destroy(gameObject);
             }
         } else if (c.name.Contains("1HP_MOZZARELLA2")) {

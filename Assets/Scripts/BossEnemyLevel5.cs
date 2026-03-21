@@ -68,6 +68,8 @@ public class BossEnemyLevel5 : MonoBehaviour
 
     private int saveFrame;
 
+    int lastProcessedBeat = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,24 +90,45 @@ public class BossEnemyLevel5 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (currState)
+        int mode = PlayerPrefs.GetInt("useLegacyPhysics", 1);
+        // Debug.Log("useLegacyPhysics was: " + mode);
+        if (mode == 1)
         {
-            case (EnemyState.Attack1):
-                Attack1();
-                break;
-            case (EnemyState.Attack2):
-                Attack2();
-                break;
-            case (EnemyState.Attack3):
-                Attack3();
-                break;
-            case (EnemyState.Die):
-                Die();
-                break;
-        }    
+            switch (currState)
+            {
+                case (EnemyState.Attack1):
+                    Attack1();
+                    break;
+                case (EnemyState.Attack2):
+                    Attack2();
+                    break;
+                case (EnemyState.Attack3):
+                    Attack3();
+                    break;
+                case (EnemyState.Die):
+                    // Die();
+                    break;
+            }   
+        } else {
+            // Beat-based attack logic
+            int currentBeat = BeatManager.Instance.GetCurrentBeatNumber();
+            // Debug.Log("Beat: " + currentBeat);
+            if (currentBeat > lastProcessedBeat) {
+                lastProcessedBeat = currentBeat;
+                //Debug.Log("Attack");
+
+                // Only trigger attacks on the beat
+                if (ShouldAttackThisBeat(currentBeat)) {
+                    HandleAttackOnBeat();
+                }
+            }
+            HandleFixedMovement();
+        }
+         
 
         if (HP <= 0) {
             currState = EnemyState.Die;
+            Die();
         }
 
         if ((float)HP / (float)maxHP <= 0.75f && !startedPhase2) {
@@ -221,6 +244,282 @@ public class BossEnemyLevel5 : MonoBehaviour
     {
         return transform.localScale.x > 0;
     }
+
+
+// -------------------
+// FIXED ATTACKS HERE
+// -------------------
+
+    private void HandleFixedMovement()
+    {
+        switch (phase) {
+            case 1:
+                if (currState == EnemyState.Attack1)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x < -5) {
+                        moveSpeed = 5;
+                    } else if (transform.position.x > 5) {
+                        moveSpeed = -5;
+                    }
+                } else if (currState == EnemyState.Attack2)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x < -6) {
+                        moveSpeed = 7;
+                    } else if (transform.position.x > 6) {
+                        moveSpeed = -7;
+                    }
+                }
+                break;
+            case 2:
+                if (currState == EnemyState.Attack1)
+                {
+                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    if (transform.position.y < -5) {
+                        moveSpeed = 5;
+                    } else if (transform.position.y > 5) {
+                        moveSpeed = -5;
+                    }
+                } else if (currState == EnemyState.Attack2)
+                {
+                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    if (transform.position.y < -6) {
+                        moveSpeed = 5;
+                    } else if (transform.position.y > 6) {
+                        moveSpeed = -5;
+                    }
+                }
+                break;
+            case 3:
+                if (currState == EnemyState.Attack1)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x < -5) {
+                        moveSpeed = 5;
+                    } else if (transform.position.x > 5) {
+                        moveSpeed = -5;
+                    }
+                } else if (currState == EnemyState.Attack2)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x < -6) {
+                        moveSpeed = 7;
+                    } else if (transform.position.x > 6) {
+                        moveSpeed = -7;
+                    }
+                }
+                break;
+            case 4:
+                if (currState == EnemyState.Attack1)
+                {
+                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    if (transform.position.y < -5) {
+                        moveSpeed = 5;
+                    } else if (transform.position.y > 5) {
+                        moveSpeed = -5;
+                    }
+                } else if (currState == EnemyState.Attack2)
+                {
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x < -6) {
+                        moveSpeed = 7;
+                    } else if (transform.position.x > 6) {
+                        moveSpeed = -7;
+                    }
+                }
+                break;
+        }
+    }
+    private void HandleAttackOnBeat() {
+        switch (currState) {
+            case EnemyState.Attack1:
+                Attack1New();
+                break;
+            case EnemyState.Attack2:
+                Attack2New();
+                break;
+            case EnemyState.Die:
+                // Die();
+                break;
+            default:
+                ChooseNextAttack(); // e.g., cycle or randomize attacks
+                break;
+        }
+    }
+
+    private void ChooseNextAttack() {
+        switch (phase) {
+            case 1:
+                currState = EnemyState.Attack1;
+                break;
+            case 2:
+                currState = (Random.value < 0.5f) ? EnemyState.Attack1 : EnemyState.Attack2;
+                break;
+            case 3:
+                currState = EnemyState.Attack2;
+                break;
+            case 4:
+                currState = (Random.value < 0.5f) ? EnemyState.Attack1 : EnemyState.Attack2;
+                break;
+        }
+    }
+
+    bool ShouldAttackThisBeat(int beat) {
+        if (isInvincible) {
+            return false;
+        }
+        if (beat % 64 == 0) {
+            Debug.Log("beat % 64 == 0");
+            if (currState == EnemyState.Attack1)
+            {
+                changeAttack(2);
+            } else if (currState == EnemyState.Attack2)
+            {
+                changeAttack(1);
+            }
+        }
+        switch (phase) {
+            case 1:
+                return beat % 36 == 0 || beat % 36 == 6 || beat % 36 == 12
+                    || beat % 36 == 16 || beat % 36 == 22 || beat % 36 == 28
+                    || beat % 36 == 32;
+            case 2:
+                if (currState == EnemyState.Attack1)
+                {
+                    return beat % 4 == 0; // More aggressive
+                }
+                return beat % 8 == 0; // More aggressive
+            case 3:
+                if (currState == EnemyState.Attack1)
+                {
+                    return beat % 36 == 0 || beat % 36 == 6 || beat % 36 == 12
+                    || beat % 36 == 16 || beat % 36 == 22 || beat % 36 == 28
+                    || beat % 36 == 32;
+                }
+                return beat % 4 == 0; // More aggressive
+            case 4:
+                return beat % 2 == 0; // Fast
+            default:
+                return false;
+        }
+    }
+
+    void Attack1New()
+    {
+        if (phase == 1) {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            shootBullet(vec, new Vector3(0,-1,0), 8f);
+            shootBullet(vec, new Vector3(0,1,0), 8f);
+            shootBullet(vec, new Vector3(1,0,0), 8f);
+            shootBullet(vec, new Vector3(-1,0,0), 8f);
+            
+            vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 8f); 
+        } else if (phase == 2) {
+            Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 8f);
+        } else if (phase == 3) {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 3f);
+
+            shootBullet(vec, new Vector3(0,-1,0), 2f);
+            shootBullet(vec, new Vector3(0,1,0), 2f);
+            shootBullet(vec, new Vector3(1,0,0), 2f);
+            shootBullet(vec, new Vector3(-1,0,0), 2f);
+            shootBullet(vec, new Vector3(-1,-1,0), 2f);
+            shootBullet(vec, new Vector3(1,1,0), 2f);
+            shootBullet(vec, new Vector3(1,-1,0), 2f);
+            shootBullet(vec, new Vector3(-1,1,0), 2f);
+        } else if (phase == 4) {
+            int currentBeat = BeatManager.Instance.GetCurrentBeatNumber();
+            if (currentBeat % 4 == 0)
+            {
+                Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
+            }
+
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 5f);
+
+            shootBullet(vec, new Vector3(1,0,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,1,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-1,0,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,-0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,-1,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,-0.6f,0), 5f);
+        }
+    }
+
+    void Attack2New()
+    {
+        if (phase == 1) {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            shootBullet(vec, new Vector3(-1,-1,0), 2f);
+            shootBullet(vec, new Vector3(1,1,0), 2f);
+            shootBullet(vec, new Vector3(1,-1,0), 2f);
+            shootBullet(vec, new Vector3(-1,1,0), 2f);
+        } else if (phase == 2) {
+            Instantiate(LineAttack, spawnpoints[Random.Range(1,8)]);
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            shootBullet(vec, new Vector3(1,0,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,1,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,0.8f,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-1,0,0), 5f);
+            shootBullet(vec, new Vector3(-0.8f,-0.6f,0), 5f);
+            shootBullet(vec, new Vector3(-0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0,-1,0), 5f);
+            shootBullet(vec, new Vector3(0.6f,-0.8f,0), 5f);
+            shootBullet(vec, new Vector3(0.8f,-0.6f,0), 5f);
+        } else if (phase == 3) {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x + 5) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 8f);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x - 5) / d,
+            (player.transform.position.y - transform.position.y) / d,0), 8f);
+
+            shootBullet(vec, new Vector3(-1,-1,0), 2f);
+            shootBullet(vec, new Vector3(1,1,0), 2f);
+            shootBullet(vec, new Vector3(1,-1,0), 2f);
+            shootBullet(vec, new Vector3(-1,1,0), 2f);
+        } else if (phase == 4)
+        {
+            Vector3 vec = new Vector3(.05f, .05f, .05f);
+            float d = Vector3.Distance(transform.position, player.transform.position);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y + 5) / d,0), 8f);
+            shootBullet(vec, new Vector3((player.transform.position.x - transform.position.x) / d,
+            (player.transform.position.y - transform.position.y - 5) / d,0), 8f);
+
+            shootBullet(vec, new Vector3(-1,-1,0), 2f);
+            shootBullet(vec, new Vector3(1,1,0), 2f);
+            shootBullet(vec, new Vector3(1,-1,0), 2f);
+            shootBullet(vec, new Vector3(-1,1,0), 2f);
+        }
+        
+    }
+
+// -------------------
+// LEGACY ATTACKS HERE
+// -------------------
 
     void Attack1()
     {
