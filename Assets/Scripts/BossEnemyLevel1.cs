@@ -63,7 +63,7 @@ public class BossEnemyLevel1 : MonoBehaviour
     [SerializeField] Sprite phase2Sprite;
     [SerializeField] Sprite phase34Sprite;
 
-    private AudioSource splat;
+    [SerializeField] private AudioSource splat;
 
     private float startTime;
 
@@ -77,7 +77,7 @@ public class BossEnemyLevel1 : MonoBehaviour
         //currState = EnemyState.Attack1;
         og = GetComponent<Renderer>().material.color;
         player = GameObject.Find("Player").transform;
-        splat = GameObject.Find("Splat").GetComponent<AudioSource>();
+        // splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
         transparent = new Color(og.r, og.g, og.b, 0.5f);

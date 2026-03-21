@@ -60,7 +60,7 @@ public class BossEnemyLevel2 : MonoBehaviour
     [SerializeField] Sprite phase2Sprite;
     [SerializeField] Sprite phase34Sprite;
 
-    private AudioSource splat;
+    [SerializeField] private AudioSource splat;
 
     private int saveFrame;
 
@@ -74,7 +74,7 @@ public class BossEnemyLevel2 : MonoBehaviour
         //currState = EnemyState.Attack1;
         og = GetComponent<Renderer>().material.color;
         player = GameObject.Find("Player").transform;
-        splat = GameObject.Find("Splat").GetComponent<AudioSource>();
+        // splat = GameObject.Find("Splat").GetComponent<AudioSource>();
         spawnpoints = GameObject.Find("Spawnpoints").transform.GetComponentsInChildren<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
         saveFrame = Time.frameCount;
