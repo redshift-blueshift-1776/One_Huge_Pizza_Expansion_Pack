@@ -848,6 +848,7 @@ GameObject:
   - component: {fileID: 1477115883}
   - component: {fileID: 1477115882}
   - component: {fileID: 1477115881}
+  - component: {fileID: 1477115884}
   m_Layer: 5
   m_Name: Legacy
   m_TagString: Untagged
@@ -921,8 +922,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 93586492}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: switchScenes
-        m_Mode: 3
+        m_MethodName: toggleLegacyPhysics
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -969,6 +970,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477115879}
   m_CullTransparentMesh: 1
+--- !u!114 &1477115884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477115879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e905a8aff3db64ce68faf9aec1dd0fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonText: {fileID: 3606040}
 --- !u!1 &1701213853
 GameObject:
   m_ObjectHideFlags: 0
