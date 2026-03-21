@@ -42,7 +42,11 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D c)
     {
         if (c.name.Contains("StaticBarrier")) {
-            Destroy(gameObject);
+            int mode = PlayerPrefs.GetInt("useLegacyPhysics", 1);
+            if (mode == 0)
+            {
+                Destroy(gameObject);
+            }
         } else if (c.name.Contains("1HP_MOZZARELLA2")) {
             Destroy(gameObject);
         } else if (c.name == "1HP_MOZZARELLA2 (1)") {
