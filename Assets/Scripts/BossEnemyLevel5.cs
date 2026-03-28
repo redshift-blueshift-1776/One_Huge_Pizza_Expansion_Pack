@@ -264,10 +264,17 @@ public class BossEnemyLevel5 : MonoBehaviour
                     }
                 } else if (currState == EnemyState.Attack2)
                 {
+                    if (transform.position.x > 1)
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * 2);
+                    } else
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * -1);
+                    }
                     transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-                    if (transform.position.x < -6) {
+                    if (transform.position.x < -3) {
                         moveSpeed = 7;
-                    } else if (transform.position.x > 6) {
+                    } else if (transform.position.x > 3) {
                         moveSpeed = -7;
                     }
                 }
@@ -275,7 +282,8 @@ public class BossEnemyLevel5 : MonoBehaviour
             case 2:
                 if (currState == EnemyState.Attack1)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * 2);
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
                     if (transform.position.y < -5) {
                         moveSpeed = 5;
                     } else if (transform.position.y > 5) {
@@ -284,9 +292,14 @@ public class BossEnemyLevel5 : MonoBehaviour
                 } else if (currState == EnemyState.Attack2)
                 {
                     transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * 2);
                     if (transform.position.y < -6) {
                         moveSpeed = 5;
                     } else if (transform.position.y > 6) {
+                        moveSpeed = -5;
+                    } else if (transform.position.x < -6) {
+                        moveSpeed = 5;
+                    } else if (transform.position.x > 6) {
                         moveSpeed = -5;
                     }
                 }
@@ -302,7 +315,14 @@ public class BossEnemyLevel5 : MonoBehaviour
                     }
                 } else if (currState == EnemyState.Attack2)
                 {
-                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x > 0)
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * 2);
+                    } else
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * -1);
+                    }
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * 2);
                     if (transform.position.x < -6) {
                         moveSpeed = 7;
                     } else if (transform.position.x > 6) {
@@ -313,7 +333,14 @@ public class BossEnemyLevel5 : MonoBehaviour
             case 4:
                 if (currState == EnemyState.Attack1)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+                    transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * 2);
+                    if (transform.position.y > 0)
+                    {
+                        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * 2);
+                    } else
+                    {
+                        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * -1);
+                    }
                     if (transform.position.y < -5) {
                         moveSpeed = 5;
                     } else if (transform.position.y > 5) {
@@ -321,7 +348,14 @@ public class BossEnemyLevel5 : MonoBehaviour
                     }
                 } else if (currState == EnemyState.Attack2)
                 {
-                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+                    if (transform.position.x > 0)
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * 2);
+                    } else
+                    {
+                        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed * -1);
+                    }
+                    transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * 2);
                     if (transform.position.x < -6) {
                         moveSpeed = 7;
                     } else if (transform.position.x > 6) {
